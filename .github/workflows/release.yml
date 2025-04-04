@@ -7,12 +7,12 @@ on:
       - main
     paths-ignore:
       - 'README.md'
+      - 'LICENSE'
 
 jobs:
   build:
     name: Build Chrome and Firefox Extension
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -31,33 +31,57 @@ jobs:
       - name: Prepare Chrome Extension
         run: |
           cp manifest/manifest-chrome.json src/manifest.json
-          ./prepare-for-chrome.sh
-          mkdir -p chrome/dist
+          mkdir -p dist/chrome
+          cd src
+          zip -r ../dist/chrome/extension.zip *
+          cd ..
+
+      - name: Install Chrome for extension signing
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Sign Chrome Extension
+        env:
+          PEM: ${{ secrets.PEM }}
+        run: |
           echo "$PEM" > private-key.pem
+          mkdir -p dist/chrome/signed
+          # Use Chrome's pack extension tool to sign the extension
           google-chrome --pack-extension=src --pack-extension-key=private-key.pem
-          mv src.crx chrome/dist/extension.crx
+          if [ -f "src.crx" ]; then
+            mv src.crx dist/chrome/signed/extension.crx
+          else
+            echo "Chrome signing failed, using unsigned zip instead"
+            cp dist/chrome/extension.zip dist/chrome/signed/extension.zip
+          fi
+          # Clean up private key
+          rm private-key.pem
 
       - name: Prepare Firefox Extension
         run: |
           cp manifest/manifest-firefox.json src/manifest.json
-          ./prepare-for-firefox.sh
-          mkdir -p firefox/dist
-          zip -r firefox/dist/extension.xpi src
+          mkdir -p dist/firefox
+          cd src
+          zip -r ../dist/firefox/extension.xpi *
+          cd ..
 
       - name: Upload Chrome and Firefox artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: chrome-and-firefox-extensions
+          name: browser-extensions
           path: |
-            chrome/dist/extension.crx
-            firefox/dist/extension.xpi
+            dist/chrome/signed/
+            dist/firefox/
 
   release:
-    name: Release Extension
+    name: Release
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -76,19 +100,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Download extension artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: browser-extensions
+          path: dist
+
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          npx semantic-release --debug
-
-      - name: Upload Chrome and Firefox Extensions to GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            chrome/dist/extension.crx
-            firefox/dist/extension.xpi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release --debug
