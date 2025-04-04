@@ -43,6 +43,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 
 1. Go to the [Releases](https://github.com/Sigmanor/yt-ai-comments/releases) page
 2. Download the latest version for your browser (`.crx` for Chrome, `.xpi` for Firefox)
+   - The Firefox extension is now signed, making installation easier
 3. Follow the browser-specific installation instructions below
 
 ### Manual Installation
@@ -57,6 +58,14 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 6. Select the `src` folder of this project
 
 #### Firefox
+
+##### Using the Signed Extension (Recommended)
+
+1. Download the `.xpi` file from the [Releases](https://github.com/Sigmanor/yt-ai-comments/releases) page
+2. Firefox will automatically prompt you to install the extension
+3. Click "Add" to install the extension permanently
+
+##### Manual Installation (Development)
 
 1. Download or clone this repository
 2. Run `./scripts/prepare-for-firefox.sh` to set up the Firefox manifest

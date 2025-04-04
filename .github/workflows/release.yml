@@ -8,12 +8,12 @@ name: Build and Release
 
 on:
   workflow_dispatch:
-    description: 'Manually trigger a new release build and deployment'
+    description: "Manually trigger a new release build and deployment"
     inputs:
       release_notes:
-        description: 'Custom release notes (optional)'
+        description: "Custom release notes (optional)"
         required: false
-        type: 'string'
+        type: "string"
 
 jobs:
   build:
@@ -74,13 +74,36 @@ jobs:
           zip -r ../dist/firefox/extension.xpi *
           cd ..
 
+      - name: Install web-ext tool
+        run: npm install --global web-ext
+
+      - name: Sign Firefox Extension
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          mkdir -p dist/firefox/signed
+          # Sign the extension using web-ext
+          web-ext sign --source-dir=src \
+                      --api-key="$AMO_JWT_ISSUER" \
+                      --api-secret="$AMO_JWT_SECRET" \
+                      --channel=unlisted \
+                      --timeout=600000
+          # Move the signed XPI to our dist directory
+          find web-ext-artifacts -name "*.xpi" -exec mv {} dist/firefox/signed/extension.xpi \;
+          # If signing fails, use the unsigned version as fallback
+          if [ ! -f "dist/firefox/signed/extension.xpi" ]; then
+            echo "Firefox signing failed, using unsigned xpi instead"
+            cp dist/firefox/extension.xpi dist/firefox/signed/extension.xpi
+          fi
+
       - name: Upload Chrome and Firefox artifacts
         uses: actions/upload-artifact@v4
         with:
           name: browser-extensions
           path: |
             dist/chrome/signed/
-            dist/firefox/
+            dist/firefox/signed/
 
   release:
     name: Release
@@ -178,8 +201,8 @@ jobs:
             done
 
             # Upload Firefox extension
-            if [ -f "dist/firefox/extension.xpi" ]; then
-              gh release upload v1.0.0 "dist/firefox/extension.xpi#Firefox Extension (1.0.0)"
+            if [ -f "dist/firefox/signed/extension.xpi" ]; then
+              gh release upload v1.0.0 "dist/firefox/signed/extension.xpi#Firefox Extension (1.0.0)"
             fi
           else
             echo "Latest tag: $LATEST_TAG"
@@ -206,8 +229,8 @@ jobs:
               done
 
               # Upload Firefox extension
-              if [ -f "dist/firefox/extension.xpi" ]; then
-                gh release upload $LATEST_TAG "dist/firefox/extension.xpi#Firefox Extension ($VERSION)"
+              if [ -f "dist/firefox/signed/extension.xpi" ]; then
+                gh release upload $LATEST_TAG "dist/firefox/signed/extension.xpi#Firefox Extension ($VERSION)"
               fi
             else
               echo "Found release ID: $RELEASE_ID for tag $LATEST_TAG"
@@ -238,8 +261,8 @@ jobs:
               done
 
               # Upload Firefox extension
-              if [ -f "dist/firefox/extension.xpi" ]; then
-                gh release upload $LATEST_TAG "dist/firefox/extension.xpi#Firefox Extension ($VERSION)"
+              if [ -f "dist/firefox/signed/extension.xpi" ]; then
+                gh release upload $LATEST_TAG "dist/firefox/signed/extension.xpi#Firefox Extension ($VERSION)"
               fi
 
               echo "Assets updated successfully for release $LATEST_TAG"

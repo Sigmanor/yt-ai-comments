@@ -13,7 +13,7 @@
             "label": "Chrome Extension (${nextRelease.version})"
           },
           {
-            "path": "dist/firefox/extension.xpi",
+            "path": "dist/firefox/signed/extension.xpi",
             "label": "Firefox Extension (${nextRelease.version})"
           }
         ]
