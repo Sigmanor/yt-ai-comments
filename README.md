@@ -19,6 +19,19 @@ A browser extension for Chrome and Firefox that generates AI-powered comments to
 - **Seamless YouTube Integration**: Generate button appears directly in YouTube's comment field
 - **Video Context Awareness**: Automatically includes video title in the generation prompt
 
+## 📸 Screenshots
+
+<details>
+<summary style="cursor: pointer;">Click to expand</summary>
+
+![Screenshot 1](screenshots/2.png)
+
+![Screenshot 2](screenshots/3.png)
+
+![Screenshot 3](screenshots/4.png)
+
+</details>
+
 ## 📋 Requirements
 
 - Chrome (version 88+) or Firefox (version 109+)
