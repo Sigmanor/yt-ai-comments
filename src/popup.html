@@ -6,6 +6,19 @@
   <title>YouTube AI Comments Generator</title>
   <link rel="stylesheet" href="popup.css">
   <link rel="stylesheet" href="themes.css">
+  <style>
+    select {
+      cursor: pointer !important;
+    }
+  
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none !important;
+      border-color: #ff0000 !important;
+      box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -13,7 +26,7 @@
     <h1>YouTube AI Comments<br>Generator</h1>
     <div class="option-group">
       <label for="language">Comment Language:</label>
-      <select id="language">
+      <select id="language" style="cursor: pointer;">
         <option value="uk">Ukrainian</option>
         <option value="en">English</option>
         <option value="pl">Polish</option>
@@ -24,7 +37,7 @@
 
     <div class="option-group">
       <label for="provider">AI Provider:</label>
-      <select id="provider">
+      <select id="provider" style="cursor: pointer;">
         <option value="openai">OpenAI</option>
         <option value="mistralai">MistralAI</option>
       </select>

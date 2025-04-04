@@ -80,6 +80,22 @@ textarea,
   max-width: 100%;
 }
 
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #ff0000 !important;
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+select, select.option-group, .option-group select, #language, #provider, #model {
+  cursor: pointer !important;
+}
+
+#theme, .option-group #theme, select#theme {
+  cursor: pointer !important;
+}
+
 textarea {
   resize: vertical;
 }

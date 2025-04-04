@@ -51,9 +51,19 @@ h1 {
   box-sizing: border-box;
 }
 
-.option-group select {
+.option-group input:focus,
+.option-group textarea:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ff0000 !important;
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+}
+
+.option-group select, select, #language, #provider, #model {
   appearance: menulist;
   -webkit-appearance: menulist;
+  cursor: pointer !important;
 }
 
 .model-info {

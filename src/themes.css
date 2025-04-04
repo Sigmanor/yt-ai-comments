@@ -50,6 +50,15 @@ body[data-theme="dark"] {
   --error-border: #c62828;
 }
 
+/* Focus styles for all themes */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #ff0000 !important;
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+}
+
 /* Additional dark theme styles */
 [data-theme="dark"] input:focus,
 [data-theme="dark"] select:focus,
@@ -60,8 +69,9 @@ html[data-theme="dark"] textarea:focus,
 body[data-theme="dark"] input:focus,
 body[data-theme="dark"] select:focus,
 body[data-theme="dark"] textarea:focus {
-  outline-color: #ff6b6b;
-  border-color: #ff6b6b;
+  outline: none !important;
+  border-color: #ff0000 !important;
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
 }
 
 /* Apply theme variables to elements */
@@ -100,6 +110,15 @@ textarea {
   background-color: var(--input-bg);
   color: var(--text-color);
   border-color: var(--border-color);
+}
+
+select, .option-group select, html select, body select, #language, #provider, #model {
+  cursor: pointer !important;
+}
+
+/* Specific style for theme selector */
+#theme, select#theme, .option-group #theme, html #theme, body #theme {
+  cursor: pointer !important;
 }
 
 /* Ensure select options are styled correctly in dark mode */

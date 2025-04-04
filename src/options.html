@@ -6,6 +6,27 @@
   <title>yt-ai-comments</title>
   <link rel="stylesheet" href="options.css">
   <link rel="stylesheet" href="themes.css">
+  <style>
+    select {
+      cursor: pointer !important;
+    }
+  
+    #theme {
+      cursor: pointer !important;
+    }
+  
+    .option-group #theme {
+      cursor: pointer !important;
+    }
+  
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none !important;
+      border-color: #ff0000 !important;
+      box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -22,7 +43,7 @@
 
     <div class="option-group">
       <label for="provider">AI Provider:</label>
-      <select id="provider" style="width: 100%; box-sizing: border-box;">
+      <select id="provider" style="width: 100%; box-sizing: border-box; cursor: pointer;">
         <option value="openai">OpenAI</option>
         <option value="mistralai">MistralAI</option>
       </select>
@@ -60,7 +81,7 @@
 
     <div class="option-group">
       <label for="language">Comment Language:</label>
-      <select id="language" style="width: 100%; box-sizing: border-box;">
+      <select id="language" style="width: 100%; box-sizing: border-box; cursor: pointer;">
         <option value="uk">Ukrainian</option>
         <option value="en">English</option>
         <option value="pl">Polish</option>
@@ -71,7 +92,7 @@
 
     <div class="option-group">
       <label for="theme">Extension Theme:</label>
-      <select id="theme" style="width: 100%; box-sizing: border-box;">
+      <select id="theme" style="width: 100%; box-sizing: border-box; cursor: pointer !important;">
         <option value="light">Light</option>
         <option value="dark">Dark</option>
         <option value="auto">Auto (System)</option>
