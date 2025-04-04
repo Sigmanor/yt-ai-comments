@@ -62,7 +62,7 @@ textarea:focus {
   box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
 }
 
-.option-group select, select, #language, #provider, #model {
+.option-group select, select, #language, #provider {
   appearance: menulist;
   -webkit-appearance: menulist;
   cursor: pointer !important;

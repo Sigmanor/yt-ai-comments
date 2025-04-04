@@ -112,7 +112,7 @@ textarea {
   border-color: var(--border-color);
 }
 
-select, .option-group select, html select, body select, #language, #provider, #model {
+select, .option-group select, html select, body select, #language, #provider {
   cursor: pointer !important;
 }
 
