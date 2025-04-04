@@ -11,20 +11,20 @@ if [ ! -d "src" ]; then
 fi
 
 # Check if manifest-firefox.json exists
-if [ ! -f "src/manifest-firefox.json" ]; then
-  echo "Error: 'src/manifest-firefox.json' file not found!"
+if [ ! -f "manifest/manifest-firefox.json" ]; then
+  echo "Error: 'manifest/manifest-firefox.json' file not found!"
   exit 1
 fi
 
 # Create a backup of the original manifest.json if it doesn't exist yet
-if [ -f "src/manifest.json" ] && [ ! -f "src/manifest-chrome.json" ]; then
+if [ -f "src/manifest.json" ] && [ ! -f "manifest/manifest-chrome.json" ]; then
   echo "Creating backup of the original manifest.json..."
-  cp src/manifest.json src/manifest-chrome.json
+  cp src/manifest.json manifest/manifest-chrome.json
 fi
 
 # Replace manifest.json with the Firefox version
 echo "Replacing manifest.json with the Firefox version..."
-cp src/manifest-firefox.json src/manifest.json
+cp manifest/manifest-firefox.json src/manifest.json
 
 echo "Done! Now you can install the extension in Firefox."
 echo "To install in Firefox, go to about:debugging#/runtime/this-firefox"
