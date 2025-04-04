@@ -1,16 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
 
 <head>
   <meta charset="UTF-8">
   <title>YouTube AI Comments Generator</title>
   <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="themes.css">
 </head>
 
 <body>
   <div class="container">
-    <h1>YouTube AI Comments Generator</h1>
-    <button id="options-btn">Settings</button>
+    <h1>YouTube AI Comments<br>Generator</h1>
+    <div class="option-group">
+      <label for="language">Generation Language:</label>
+      <select id="language">
+        <option value="uk">Ukrainian</option>
+        <option value="en">English</option>
+        <option value="pl">Polish</option>
+        <option value="de">German</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+    
+    <div class="option-group">
+      <label for="theme">Theme:</label>
+      <select id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="auto">Auto (System)</option>
+      </select>
+    </div>
+    
+    <button id="options-btn">More Settings</button>
   </div>
   <script src="popup.js"></script>
 </body>
