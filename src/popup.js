@@ -114,8 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Open settings page when button is clicked
+  // Open settings page when button is clicked and close the popup
   document.getElementById('options-btn').addEventListener('click', function () {
     chrome.runtime.openOptionsPage();
+    window.close(); // Close the popup after opening options page
   });
 });
