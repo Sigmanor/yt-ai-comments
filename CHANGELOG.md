@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Sigmanor/yt-ai-comments/compare/v1.2.0...v1.2.1) (2025-04-04)
+
+
+### Bug Fixes
+
+* adjust "Generate Comment" spacing ([62bdf66](https://github.com/Sigmanor/yt-ai-comments/commit/62bdf6685fb1e2d33758b97607ad0983a6b20f12))
+
 # [1.2.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.1.0...v1.2.0) (2025-04-04)
 
 
