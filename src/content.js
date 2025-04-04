@@ -209,7 +209,7 @@ function addGenerateButton() {
       model: '',
       maxTokens: 2000,
       temperature: 0.5,
-      prompt: 'Write a positive comment to support the YouTube video creator.'
+      prompt: 'Write a positive comment to support the YouTube video creator. The comment should be friendly. No less than 10 words, no more than 20 words.'
     };
 
     // Function to get default model based on provider

@@ -7,7 +7,7 @@ const defaultOptions = {
   maxTokens: 2000,
   temperature: 0.5,
   theme: 'auto', // Auto = system theme, can be 'light', 'dark', or 'auto'
-  prompt: 'Write a positive comment to support the YouTube video creator. The comment should be friendly, sincere, and encouraging. No less than ten words, no more than twenty words.'
+  prompt: 'Write a positive comment to support the YouTube video creator. The comment should be friendly. No less than 10 words, no more than 20 words.'
 };
 
 // Get default model based on provider
