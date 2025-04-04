@@ -131,20 +131,30 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           # Run semantic-release to automatically determine the release type based on commit messages
-          if npx semantic-release --debug; then
+          OUTPUT_FILE="semantic-release-output.txt"
+          npx semantic-release --debug > $OUTPUT_FILE 2>&1 || true
+
+          # Check if a new release was created by looking for specific messages in the output
+          if grep -q "Publishing version" $OUTPUT_FILE; then
             echo "RELEASE_CREATED=true" >> $GITHUB_OUTPUT
             echo "Semantic release created a new release"
           else
             echo "RELEASE_CREATED=false" >> $GITHUB_OUTPUT
             echo "No new release was created by semantic-release"
+            cat $OUTPUT_FILE
           fi
 
       - name: Update Latest Release Assets
-        if: steps.semantic_release.outputs.RELEASE_CREATED == 'false'
+        if: steps.semantic_release.outputs.RELEASE_CREATED != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          echo "::group::Release Status"
+          echo "RELEASE_CREATED output: ${{ steps.semantic_release.outputs.RELEASE_CREATED }}"
+          echo "Condition evaluation: ${{ steps.semantic_release.outputs.RELEASE_CREATED != 'true' }}"
+          echo "::endgroup::"
+
           echo "No new release was created. Updating assets of the latest release..."
 
           # Get the latest release tag
