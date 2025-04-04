@@ -1,3 +1,14 @@
+# [1.2.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.1.0...v1.2.0) (2025-04-04)
+
+
+### Features
+
+* add dark theme styles for input, select, and textarea elements ([2edea1a](https://github.com/Sigmanor/yt-ai-comments/commit/2edea1a1fa4fa267dcbe8aa7b1ef55bc5b8f2f1a))
+* add input validation for max-tokens field ([2399d53](https://github.com/Sigmanor/yt-ai-comments/commit/2399d539f65d9d7f99e74f3eb07cc160ce9b4d57))
+* adjust height for about window ([cbbc155](https://github.com/Sigmanor/yt-ai-comments/commit/cbbc155ae25f3398a7f4de37b918beb9b92c1241))
+* remove number input arrows ([b615d36](https://github.com/Sigmanor/yt-ai-comments/commit/b615d36dba17d30d81659a38936bcb02432d353c))
+* update prompt guidelines ([356af20](https://github.com/Sigmanor/yt-ai-comments/commit/356af20ce801e774cbe4d377a16e1578d89557b3))
+
 # [1.1.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.0.0...v1.1.0) (2025-04-04)
 
 
