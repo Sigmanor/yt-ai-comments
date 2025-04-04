@@ -427,6 +427,26 @@ document.addEventListener('DOMContentLoaded', async function() {
       });
     }
 
+    // Add input validation for max-tokens field
+    const maxTokensInput = document.getElementById('max-tokens');
+    if (maxTokensInput) {
+      // Prevent non-numeric input
+      maxTokensInput.addEventListener('keypress', function (e) {
+        // Allow only numbers (0-9) and control keys
+        if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+          e.preventDefault();
+        }
+      });
+
+      // Clean up any non-numeric values on blur
+      maxTokensInput.addEventListener('blur', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value === '') {
+          this.value = defaultOptions.maxTokens;
+        }
+      });
+    }
+
     // Add event listeners to buttons
     const saveButton = document.getElementById('save-btn');
     if (saveButton) {
