@@ -9,7 +9,7 @@ mkdir -p dist
 
 # Prepare Firefox version
 echo "Preparing Firefox version..."
-./prepare-for-firefox.sh
+./scripts/prepare-for-firefox.sh
 
 # Create Firefox zip package
 echo "Creating Firefox package..."
@@ -20,7 +20,7 @@ echo "Firefox package created at dist/youtube_ai_comments_firefox.zip"
 
 # Prepare Chrome version
 echo "Preparing Chrome version..."
-./prepare-for-chrome.sh
+./scripts/prepare-for-chrome.sh
 
 # Create Chrome zip package
 echo "Creating Chrome package..."
