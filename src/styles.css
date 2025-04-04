@@ -1,0 +1,28 @@
+.ai-comment-generator-btn {
+  background-color: #cc3b3b;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 18px;
+  padding: 0 16px;
+  margin: 0 8px 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  height: 36px;
+  min-height: 36px;
+  line-height: 36px;
+  vertical-align: middle;
+}
+
+.ai-comment-generator-btn:hover {
+  background-color: #b84949;
+}
+
+.ai-comment-generator-btn:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}

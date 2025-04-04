@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>yt-ai-comments</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Settings</h1>
+
+    <div class="option-group">
+      <label for="language">Generation Language:</label>
+      <select id="language" style="width: 100%; box-sizing: border-box;">
+        <option value="uk">Ukrainian</option>
+        <option value="en">English</option>
+        <option value="pl">Polish</option>
+        <option value="de">German</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+
+    <div class="option-group">
+      <label for="provider">AI Provider:</label>
+      <select id="provider" style="width: 100%; box-sizing: border-box;">
+        <option value="openai">OpenAI</option>
+        <option value="mistralai">MistralAI</option>
+      </select>
+    </div>
+
+    <div class="option-group">
+      <label for="api-key">API Key:</label>
+      <input type="password" id="api-key" placeholder="Enter your API key" style="width: 100%; box-sizing: border-box;">
+    </div>
+
+    <div class="option-group">
+      <label for="model">Model:</label>
+      <input type="text" id="model" placeholder="Enter model name" style="width: 100%; box-sizing: border-box;">
+      <div class="model-info">Default: mistral-small-latest for MistralAI, gpt-4o-mini for OpenAI</div>
+    </div>
+
+    <div class="option-group">
+      <label for="max-tokens">Max Tokens:</label>
+      <input type="number" id="max-tokens" min="1" max="4096" placeholder="Enter max tokens"
+        style="width: 100%; box-sizing: border-box;">
+      <div class="model-info">Default: 2000</div>
+    </div>
+
+    <div class="option-group">
+      <label for="temperature">Temperature: <span id="temperature-value">0.5</span></label>
+      <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.5"
+        style="width: 100%; box-sizing: border-box;">
+      <div class="range-labels">
+        <span>Precise (0)</span>
+        <span>Balanced (0.5)</span>
+        <span>Creative (1)</span>
+      </div>
+    </div>
+
+
+
+    <div class="option-group">
+      <label for="prompt">Generation Prompt:</label>
+      <textarea id="prompt" rows="5" placeholder="Write a prompt for comment generation"
+        style="width: 100%; box-sizing: border-box;">Write a positive comment to support the YouTube video creator. The comment should be friendly, sincere, and encouraging. No more than 2-3 sentences.</textarea>
+    </div>
+
+    <div class="buttons">
+      <button id="save-btn">Save</button>
+      <button id="reset-btn">Reset</button>
+    </div>
+
+    <div id="status" class="status"></div>
+  </div>
+  <script src="options.js"></script>
+</body>
+
+</html>
