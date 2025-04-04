@@ -3,6 +3,7 @@ name: Build and Release
 # This workflow is manually triggered via the GitHub Actions UI
 # It builds the extension for Chrome and Firefox and creates a new release
 # The release type (patch, minor, major) is determined automatically based on commit messages
+# If no new release is needed (e.g., only chore commits), it updates the assets of the latest release
 # Optional custom release notes can be provided
 
 on:
@@ -122,11 +123,90 @@ jobs:
           git add RELEASE_NOTES.md
           git commit -m "docs: add custom release notes [skip ci]"
 
-      - name: Release
+      - name: Try Semantic Release
+        id: semantic_release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           # Run semantic-release to automatically determine the release type based on commit messages
-          npx semantic-release --debug
+          if npx semantic-release --debug; then
+            echo "RELEASE_CREATED=true" >> $GITHUB_OUTPUT
+            echo "Semantic release created a new release"
+          else
+            echo "RELEASE_CREATED=false" >> $GITHUB_OUTPUT
+            echo "No new release was created by semantic-release"
+          fi
+
+      - name: Update Latest Release Assets
+        if: steps.semantic_release.outputs.RELEASE_CREATED == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "No new release was created. Updating assets of the latest release..."
+
+          # Get the latest release tag
+          LATEST_TAG=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/tags" | \
+            jq -r '.[0].name')
+
+          if [ "$LATEST_TAG" == "null" ] || [ -z "$LATEST_TAG" ]; then
+            echo "No tags found. Creating initial release..."
+            gh release create v1.0.0 \
+              --title "Initial Release" \
+              --notes "Initial release with browser extensions" \
+              dist/chrome/signed/*.?(crx|zip) \
+              dist/firefox/extension.xpi
+          else
+            echo "Latest tag: $LATEST_TAG"
+
+            # Get the release ID for the latest tag
+            RELEASE_ID=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/tags/$LATEST_TAG" | \
+              jq -r '.id')
+
+            if [ "$RELEASE_ID" == "null" ] || [ -z "$RELEASE_ID" ]; then
+              echo "No release found for tag $LATEST_TAG. Creating release..."
+              gh release create $LATEST_TAG \
+                --title "Release $LATEST_TAG" \
+                --notes "Updated browser extensions" \
+                dist/chrome/signed/*.?(crx|zip) \
+                dist/firefox/extension.xpi
+            else
+              echo "Found release ID: $RELEASE_ID for tag $LATEST_TAG"
+
+              # Delete existing assets to avoid duplicates
+              ASSETS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                "https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets")
+
+              echo "Deleting existing assets..."
+              echo $ASSETS | jq -r '.[] | .id' | while read ASSET_ID; do
+                if [ ! -z "$ASSET_ID" ]; then
+                  curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
+                    "https://api.github.com/repos/${{ github.repository }}/releases/assets/$ASSET_ID"
+                  echo "Deleted asset ID: $ASSET_ID"
+                fi
+              done
+
+              # Upload new assets
+              echo "Uploading new assets to release $LATEST_TAG..."
+              VERSION=${LATEST_TAG#v}
+
+              # Find Chrome extension file(s)
+              CHROME_FILES=$(find dist/chrome/signed -name "*.crx" -o -name "*.zip")
+              for FILE in $CHROME_FILES; do
+                FILENAME=$(basename "$FILE")
+                EXTENSION=${FILENAME##*.}
+                gh release upload $LATEST_TAG "$FILE#Chrome Extension ($VERSION).$EXTENSION"
+              done
+
+              # Upload Firefox extension
+              if [ -f "dist/firefox/extension.xpi" ]; then
+                gh release upload $LATEST_TAG "dist/firefox/extension.xpi#Firefox Extension ($VERSION).xpi"
+              fi
+
+              echo "Assets updated successfully for release $LATEST_TAG"
+            fi
+          fi
