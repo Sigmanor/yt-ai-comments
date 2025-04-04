@@ -542,9 +542,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       aboutButton.addEventListener('click', function () {
         console.log('About button clicked');
         // Open about.html in a new window
-        chrome.runtime.openOptionsPage ?
-          window.open(chrome.runtime.getURL('about.html'), '_blank', 'width=600,height=830') :
-          window.open(chrome.extension.getURL('about.html'), '_blank', 'width=600,height=830');
+        window.open(chrome.runtime.getURL('about.html'), '_blank', 'width=600,height=830');
       });
     }
   } catch (error) {
