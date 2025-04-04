@@ -27,6 +27,30 @@
       border-color: #ff0000 !important;
       box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
     }
+
+    #about-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+
+    #about-button:hover {
+      transform: scale(1.1);
+    }
+
+    #about-button img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
   </style>
 </head>
 
@@ -107,6 +131,10 @@
 
     <div id="status" class="status"></div>
   </div>
+  <div id="about-button" title="About YouTube AI Comments Generator">
+    <img src="icons/help.png" alt="About">
+  </div>
+
   <script src="options.js"></script>
 </body>
 

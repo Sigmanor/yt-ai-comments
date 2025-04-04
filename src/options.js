@@ -515,6 +515,18 @@ document.addEventListener('DOMContentLoaded', async function() {
     };
 
     console.log('Options page initialized successfully');
+
+    // Add event listener for the About button
+    const aboutButton = document.getElementById('about-button');
+    if (aboutButton) {
+      aboutButton.addEventListener('click', function () {
+        console.log('About button clicked');
+        // Open about.html in a new window
+        chrome.runtime.openOptionsPage ?
+          window.open(chrome.runtime.getURL('about.html'), '_blank', 'width=600,height=600') :
+          window.open(chrome.extension.getURL('about.html'), '_blank', 'width=600,height=600');
+      });
+    }
   } catch (error) {
     console.error('Error initializing options page:', error);
     alert('Error initializing options page: ' + error.message);
