@@ -42,7 +42,7 @@ A browser extension for Chrome and Firefox that allows you to generate comments 
 
 1. Go to any YouTube video
 2. Find the comment field
-3. Click the "🤖 Generate Comment" button next to the comment field
+3. Click the "Generate Comment" button next to the comment field
 4. The generated comment will be automatically inserted into the comment field
 5. Edit the comment if needed before publishing
 6. Publish the comment by clicking the "Comment" button on YouTube
