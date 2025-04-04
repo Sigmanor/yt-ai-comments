@@ -44,6 +44,9 @@
       "background.js"
     ]
   },
+  "web_accessible_resources": [
+    "about.html"
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
