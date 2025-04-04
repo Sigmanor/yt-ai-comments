@@ -1,10 +1,24 @@
 {
   "branches": ["main"],
-  "repositoryUrl": "https://github.com/think-root/content-sentinel.git",
+  "repositoryUrl": "https://github.com/Sigmanor/yt-ai-comments.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    "@semantic-release/github",
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "dist/chrome/signed/*.?(crx|zip)",
+            "label": "Chrome Extension (${nextRelease.version})"
+          },
+          {
+            "path": "dist/firefox/extension.xpi",
+            "label": "Firefox Extension (${nextRelease.version})"
+          }
+        ]
+      }
+    ],
     "@semantic-release/changelog",
     [
       "@semantic-release/git",
