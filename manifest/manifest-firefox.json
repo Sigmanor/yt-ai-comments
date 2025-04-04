@@ -12,7 +12,8 @@
     "storage",
     "activeTab",
     "tabs",
-    "https://*.youtube.com/*"
+    "https://*.youtube.com/*",
+    "https://api.github.com/repos/Sigmanor/yt-ai-comments/*"
   ],
   "browser_action": {
     "default_popup": "popup.html",

@@ -9,7 +9,8 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://*.youtube.com/*"
+    "https://*.youtube.com/*",
+    "https://api.github.com/repos/Sigmanor/yt-ai-comments/*"
   ],
   "action": {
     "default_popup": "popup.html",
