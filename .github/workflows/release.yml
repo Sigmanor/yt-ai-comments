@@ -28,18 +28,21 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Chrome .crx
+      - name: Prepare Chrome Extension
         run: |
+          cp manifest/manifest-chrome.json src/manifest.json
+          ./prepare-for-chrome.sh
           mkdir -p chrome/dist
           echo "$PEM" > private-key.pem
-          mkdir -p ./path/to/extension
-          google-chrome --pack-extension=./path/to/extension --pack-extension-key=private-key.pem
-          mv ./path/to/extension.crx chrome/dist/extension.crx
+          google-chrome --pack-extension=src --pack-extension-key=private-key.pem
+          mv src.crx chrome/dist/extension.crx
 
-      - name: Build Firefox .xpi
+      - name: Prepare Firefox Extension
         run: |
+          cp manifest/manifest-firefox.json src/manifest.json
+          ./prepare-for-firefox.sh
           mkdir -p firefox/dist
-          zip -r firefox/dist/extension.xpi ./path/to/extension
+          zip -r firefox/dist/extension.xpi src
 
       - name: Upload Chrome and Firefox artifacts
         uses: actions/upload-artifact@v4
