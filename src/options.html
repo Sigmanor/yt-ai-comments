@@ -13,14 +13,8 @@
     <h1>Settings</h1>
 
     <div class="option-group">
-      <label for="language">Generation Language:</label>
-      <select id="language" style="width: 100%; box-sizing: border-box;">
-        <option value="uk">Ukrainian</option>
-        <option value="en">English</option>
-        <option value="pl">Polish</option>
-        <option value="de">German</option>
-        <option value="fr">French</option>
-      </select>
+      <label for="api-key">API Key:</label>
+      <input type="password" id="api-key" placeholder="Enter your API key" style="width: 100%; box-sizing: border-box;">
     </div>
 
     <div class="option-group">
@@ -29,11 +23,6 @@
         <option value="openai">OpenAI</option>
         <option value="mistralai">MistralAI</option>
       </select>
-    </div>
-
-    <div class="option-group">
-      <label for="api-key">API Key:</label>
-      <input type="password" id="api-key" placeholder="Enter your API key" style="width: 100%; box-sizing: border-box;">
     </div>
 
     <div class="option-group">
@@ -61,19 +50,31 @@
     </div>
 
     <div class="option-group">
-      <label for="theme">Theme:</label>
+      <label for="prompt">Prompt:</label>
+      <textarea id="prompt" rows="5" placeholder="Write a prompt for comment generation"
+        style="width: 100%; box-sizing: border-box;">Write a positive comment to support the YouTube video creator. The comment should be friendly, sincere, and encouraging. No more than 2-3 sentences.</textarea>
+    </div>
+
+    <div class="option-group">
+      <label for="language">Comment Language:</label>
+      <select id="language" style="width: 100%; box-sizing: border-box;">
+        <option value="uk">Ukrainian</option>
+        <option value="en">English</option>
+        <option value="pl">Polish</option>
+        <option value="de">German</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+
+    <hr>
+
+    <div class="option-group">
+      <label for="theme">Extension Theme:</label>
       <select id="theme" style="width: 100%; box-sizing: border-box;">
         <option value="light">Light</option>
         <option value="dark">Dark</option>
         <option value="auto">Auto (System)</option>
       </select>
-    </div>
-
-
-    <div class="option-group">
-      <label for="prompt">Generation Prompt:</label>
-      <textarea id="prompt" rows="5" placeholder="Write a prompt for comment generation"
-        style="width: 100%; box-sizing: border-box;">Write a positive comment to support the YouTube video creator. The comment should be friendly, sincere, and encouraging. No more than 2-3 sentences.</textarea>
     </div>
 
     <div class="buttons">
