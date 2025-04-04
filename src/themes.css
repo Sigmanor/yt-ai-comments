@@ -1,0 +1,187 @@
+/* Theme styles for YouTube AI Comments Generator */
+
+/* Light theme (default) */
+:root {
+  --bg-color: #f5f5f5;
+  --container-bg: white;
+  --text-color: #333;
+  --label-color: #555;
+  --border-color: #ddd;
+  --input-bg: white;
+  --button-bg: #ff0000;
+  --button-hover: #cc0000;
+  --reset-button-bg: #888;
+  --reset-button-hover: #666;
+  --slider-bg: #ddd;
+  --slider-thumb: #ff0000;
+  --info-text: #999;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --success-bg: #e6f4ea;
+  --success-color: #137333;
+  --success-border: #137333;
+  --error-bg: #fce8e6;
+  --error-color: #c5221f;
+  --error-border: #c5221f;
+}
+
+/* Dark theme */
+[data-theme="dark"],
+html[data-theme="dark"] body,
+body[data-theme="dark"] {
+  --bg-color: #222;
+  --container-bg: #333;
+  --text-color: #eee;
+  --label-color: #ccc;
+  --border-color: #555;
+  --input-bg: #444;
+  --button-bg: #ff0000;
+  --button-hover: #cc0000;
+  --reset-button-bg: #666;
+  --reset-button-hover: #888;
+  --slider-bg: #555;
+  --slider-thumb: #ff0000;
+  --info-text: #aaa;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --success-bg: #1e3a29;
+  --success-color: #5cdb95;
+  --success-border: #2e7d32;
+  --error-bg: #3e2222;
+  --error-color: #ff6b6b;
+  --error-border: #c62828;
+}
+
+/* Additional dark theme styles */
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus,
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus,
+body[data-theme="dark"] input:focus,
+body[data-theme="dark"] select:focus,
+body[data-theme="dark"] textarea:focus {
+  outline-color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+/* Apply theme variables to elements */
+html,
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure dark theme is applied even if the attribute is only on html */
+html[data-theme="dark"] body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.container {
+  background-color: var(--container-bg);
+  box-shadow: 0 2px 10px var(--shadow-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-color);
+}
+
+label {
+  color: var(--label-color);
+}
+
+select,
+input,
+textarea {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+/* Ensure select options are styled correctly in dark mode */
+[data-theme="dark"] select option,
+html[data-theme="dark"] select option,
+body[data-theme="dark"] select option {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--button-bg);
+  color: white;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+#reset-btn {
+  background-color: var(--reset-button-bg);
+}
+
+#reset-btn:hover {
+  background-color: var(--reset-button-hover);
+}
+
+input[type="range"] {
+  background: var(--slider-bg);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: var(--slider-thumb);
+}
+
+input[type="range"]::-moz-range-thumb {
+  background: var(--slider-thumb);
+}
+
+.model-info,
+.range-labels {
+  color: var(--info-text);
+}
+
+.success {
+  background-color: var(--success-bg);
+  color: var(--success-color);
+  border-color: var(--success-border);
+}
+
+.error {
+  background-color: var(--error-bg);
+  color: var(--error-color);
+  border-color: var(--error-border);
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.theme-toggle button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.theme-toggle button:hover {
+  background-color: var(--border-color);
+}
+
+.theme-toggle button svg {
+  margin-right: 5px;
+}
