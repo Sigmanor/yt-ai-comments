@@ -58,10 +58,18 @@ chrome.storage.sync.get(['theme'], function (result) {
   }
 });
 
+// Get default model based on provider
+function getDefaultModel(provider) {
+  return provider === 'openai' ? 'gpt-4o-mini' : 'mistral-small-latest';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // Default values
   const defaultOptions = {
     language: 'en',
+    provider: 'openai',
+    apiKey: '',
+    model: '',  // Will be set dynamically based on provider
     theme: 'auto'
   };
 
@@ -73,6 +81,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const languageSelect = document.getElementById('language');
     if (languageSelect) {
       languageSelect.value = options.language || defaultOptions.language;
+    }
+
+    // Set provider dropdown
+    const providerSelect = document.getElementById('provider');
+    if (providerSelect) {
+      providerSelect.value = options.provider || defaultOptions.provider;
+    }
+
+    // Set API key
+    const apiKeyInput = document.getElementById('api-key');
+    if (apiKeyInput) {
+      apiKeyInput.value = options.apiKey || '';
+    }
+
+    // Set model with default if empty
+    const modelInput = document.getElementById('model');
+    if (modelInput) {
+      const modelValue = options.model || getDefaultModel(options.provider || defaultOptions.provider);
+      modelInput.value = modelValue;
     }
 
     // Set and apply theme
@@ -93,6 +120,61 @@ document.addEventListener('DOMContentLoaded', function() {
       // Save the language change
       chrome.storage.sync.set({ language: selectedLanguage }, () => {
         console.log('Language saved after change');
+      });
+    });
+  }
+
+  // Add event listener for provider change
+  const providerSelect = document.getElementById('provider');
+  if (providerSelect) {
+    providerSelect.addEventListener('change', function () {
+      const selectedProvider = this.value;
+      console.log('Provider changed to:', selectedProvider);
+
+      // Update model field if it's using a default value
+      const modelInput = document.getElementById('model');
+      if (modelInput && (!modelInput.value || modelInput.value === 'gpt-4o-mini' || modelInput.value === 'mistral-small-latest')) {
+        modelInput.value = getDefaultModel(selectedProvider);
+        console.log('Changed model to:', modelInput.value, 'for provider:', selectedProvider);
+      }
+
+      // Save the provider change
+      chrome.storage.sync.set({ provider: selectedProvider }, () => {
+        console.log('Provider saved after change');
+      });
+    });
+  }
+
+  // Add event listener for API key change
+  const apiKeyInput = document.getElementById('api-key');
+  if (apiKeyInput) {
+    // Listen for both change and input events
+    ['change', 'input'].forEach(eventType => {
+      apiKeyInput.addEventListener(eventType, function () {
+        const apiKey = this.value;
+        console.log('API key changed (length):', apiKey.length);
+
+        // Save the API key change
+        chrome.storage.sync.set({ apiKey: apiKey }, () => {
+          console.log('API key saved after change');
+        });
+      });
+    });
+  }
+
+  // Add event listener for model change
+  const modelInput = document.getElementById('model');
+  if (modelInput) {
+    // Listen for both change and input events
+    ['change', 'input'].forEach(eventType => {
+      modelInput.addEventListener(eventType, function () {
+        const model = this.value;
+        console.log('Model changed to:', model);
+
+        // Save the model change
+        chrome.storage.sync.set({ model: model }, () => {
+          console.log('Model saved after change');
+        });
       });
     });
   }
