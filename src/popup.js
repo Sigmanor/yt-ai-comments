@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     provider: 'openai',
     apiKey: '',
     model: '',  // Will be set dynamically based on provider
-    theme: 'auto'
+    theme: 'auto'  // Theme is controlled from options page, but still applied here
   };
 
   // Load saved options
@@ -102,11 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
       modelInput.value = modelValue;
     }
 
-    // Set and apply theme
-    const themeSelect = document.getElementById('theme');
-    if (themeSelect) {
-      themeSelect.value = options.theme || defaultOptions.theme;
-    }
+    // Apply theme (without UI control in popup)
     applyTheme(options.theme || defaultOptions.theme);
   });
 
@@ -179,22 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Add event listener for theme change
-  const themeSelect = document.getElementById('theme');
-  if (themeSelect) {
-    themeSelect.addEventListener('change', function () {
-      const selectedTheme = this.value;
-      console.log('Theme changed to:', selectedTheme);
-
-      // Apply theme immediately
-      applyTheme(selectedTheme);
-
-      // Save the theme change
-      chrome.storage.sync.set({ theme: selectedTheme }, () => {
-        console.log('Theme saved after change');
-      });
-    });
-  }
+  // Theme is now controlled only from the options page
 
   // Open settings page when button is clicked and close the popup
   document.getElementById('options-btn').addEventListener('click', function () {
