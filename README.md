@@ -72,14 +72,14 @@ A browser extension for Chrome and Firefox that generates AI-powered comments to
 
 | Setting | Description | Default |
 |---------|-------------|--------|
-| **Generation Language** | Language for generated comments | English |
+| **Comment Language** | Language for generated comments | English |
 | **AI Provider** | Choose between OpenAI and MistralAI | OpenAI |
 | **API Key** | Your API key for the selected provider | - |
 | **Model** | AI model to use for generation | gpt-4o-mini (OpenAI) or mistral-small-latest (MistralAI) |
 | **Max Tokens** | Maximum length of generated comments | 2000 |
 | **Temperature** | Creativity level (0.0-1.0) | 0.5 |
 | **Theme** | UI appearance (Light, Dark, or Auto) | Auto (System) |
-| **Generation Prompt** | Template for comment generation | Supportive comment template |
+| **Prompt** | Template for comment generation | Supportive comment template |
 
 ## 🔑 Getting API Keys
 
