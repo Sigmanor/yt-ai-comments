@@ -1,13 +1,18 @@
-name: Build and Release Extension
+name: Build and Release
+
+# This workflow is manually triggered via the GitHub Actions UI
+# It builds the extension for Chrome and Firefox and creates a new release
+# The release type (patch, minor, major) is determined automatically based on commit messages
+# Optional custom release notes can be provided
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "README.md"
-      - "LICENSE"
+    description: 'Manually trigger a new release build and deployment'
+    inputs:
+      release_notes:
+        description: 'Custom release notes (optional)'
+        required: false
+        type: 'string'
 
 jobs:
   build:
@@ -106,9 +111,22 @@ jobs:
           name: browser-extensions
           path: dist
 
+      - name: Prepare Custom Release Notes
+        if: ${{ github.event.inputs.release_notes != '' }}
+        run: |
+          # Create a temporary release notes file if custom notes are provided
+          echo '${{ github.event.inputs.release_notes }}' > RELEASE_NOTES.md
+          # Create a commit with the custom release notes
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add RELEASE_NOTES.md
+          git commit -m "docs: add custom release notes [skip ci]"
+
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx semantic-release --debug
+        run: |
+          # Run semantic-release to automatically determine the release type based on commit messages
+          npx semantic-release --debug
