@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir -p chrome/dist
           echo "$PEM" > private-key.pem
+          mkdir -p ./path/to/extension
           google-chrome --pack-extension=./path/to/extension --pack-extension-key=private-key.pem
           mv ./path/to/extension.crx chrome/dist/extension.crx
 
