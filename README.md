@@ -129,10 +129,7 @@ A browser extension for Chrome and Firefox that generates AI-powered comments to
    cd yt-ai-comments
    ```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+2. No dependencies installation is required for local development. The package.json file is only used for the CI/CD pipeline with semantic-release.
 
 3. Build extensions for both browsers:
    ```bash
