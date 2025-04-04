@@ -51,18 +51,26 @@
 
     .donate-button {
       width: auto;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       padding: 10px 20px;
-      background-color: var(--button-bg);
+      background-color: #0070ba;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      font-weight: bold;
     }
 
     .donate-button:hover {
-      background-color: var(--button-hover);
+      background-color: #003087;
+    }
+
+    .donate-button img {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
     }
   </style>
 </head>
@@ -107,7 +115,7 @@
     <div style="text-align: center; margin: 15px 0;">
       <a href="https://www.paypal.com/donate/?hosted_button_id=JD8VFJT82ZY66" target="_blank">
         <button class="donate-button">
-          Donate via PayPal
+          <img src="icons/paypal.png" alt="PayPal logo"> Donate via PayPal
         </button>
       </a>
     </div>
