@@ -10,7 +10,7 @@
     select {
       cursor: pointer !important;
     }
-  
+
     input:focus,
     textarea:focus,
     select:focus {
@@ -18,12 +18,30 @@
       border-color: #ff0000 !important;
       box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
     }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .blue-button {
+      background-color: #1a73e8;
+    }
+
+    .blue-button:hover {
+      background-color: #1557b0;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>YouTube AI Comments<br>Generator</h1>
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+      <img src="icons/icon48.png" alt="Extension Icon" style="width: 24px; height: 24px; margin-right: 8px;">
+      <h1 style="margin: 0; font-size: 16px; line-height: 1.3;">YouTube AI Comments<br>Generator</h1>
+    </div>
     <div class="option-group">
       <label for="language">Comment Language:</label>
       <select id="language" style="cursor: pointer;">
@@ -54,7 +72,10 @@
       <input type="password" id="api-key" placeholder="Enter your API key">
     </div>
 
-    <button id="options-btn">More Settings</button>
+    <div class="button-group">
+      <button id="about-btn" class="blue-button">About</button>
+      <button id="options-btn">More Settings</button>
+    </div>
   </div>
   <script src="popup.js"></script>
 </body>

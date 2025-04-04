@@ -182,4 +182,10 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.runtime.openOptionsPage();
     window.close(); // Close the popup after opening options page
   });
+
+  // Open about page when button is clicked and close the popup
+  document.getElementById('about-btn').addEventListener('click', function () {
+    chrome.tabs.create({ url: chrome.runtime.getURL('about.html') });
+    window.close(); // Close the popup after opening about page
+  });
 });
