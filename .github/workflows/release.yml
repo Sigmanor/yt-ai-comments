@@ -149,10 +149,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          RELEASE_CREATED: ${{ steps.semantic_release.outputs.RELEASE_CREATED }}
         run: |
           echo "::group::Release Status"
-          echo "RELEASE_CREATED output: ${{ steps.semantic_release.outputs.RELEASE_CREATED }}"
-          echo "Condition evaluation: ${{ steps.semantic_release.outputs.RELEASE_CREATED != 'true' }}"
+          echo "RELEASE_CREATED output: ${RELEASE_CREATED}"
           echo "::endgroup::"
 
           echo "No new release was created. Updating assets of the latest release..."
@@ -164,11 +164,23 @@ jobs:
 
           if [ "$LATEST_TAG" == "null" ] || [ -z "$LATEST_TAG" ]; then
             echo "No tags found. Creating initial release..."
+            # Find Chrome extension files
+            CHROME_FILES=$(find dist/chrome/signed -name "*.crx" -o -name "*.zip")
+
+            # Create the release
             gh release create v1.0.0 \
               --title "Initial Release" \
-              --notes "Initial release with browser extensions" \
-              dist/chrome/signed/*.?(crx|zip) \
-              dist/firefox/extension.xpi
+              --notes "Initial release with browser extensions"
+
+            # Upload Chrome extension files
+            for FILE in $CHROME_FILES; do
+              gh release upload v1.0.0 "$FILE#Chrome Extension (1.0.0)"
+            done
+
+            # Upload Firefox extension
+            if [ -f "dist/firefox/extension.xpi" ]; then
+              gh release upload v1.0.0 "dist/firefox/extension.xpi#Firefox Extension (1.0.0)"
+            fi
           else
             echo "Latest tag: $LATEST_TAG"
 
@@ -179,11 +191,24 @@ jobs:
 
             if [ "$RELEASE_ID" == "null" ] || [ -z "$RELEASE_ID" ]; then
               echo "No release found for tag $LATEST_TAG. Creating release..."
+              # Find Chrome extension files
+              CHROME_FILES=$(find dist/chrome/signed -name "*.crx" -o -name "*.zip")
+              VERSION=${LATEST_TAG#v}
+
+              # Create the release
               gh release create $LATEST_TAG \
                 --title "Release $LATEST_TAG" \
-                --notes "Updated browser extensions" \
-                dist/chrome/signed/*.?(crx|zip) \
-                dist/firefox/extension.xpi
+                --notes "Updated browser extensions"
+
+              # Upload Chrome extension files
+              for FILE in $CHROME_FILES; do
+                gh release upload $LATEST_TAG "$FILE#Chrome Extension ($VERSION)"
+              done
+
+              # Upload Firefox extension
+              if [ -f "dist/firefox/extension.xpi" ]; then
+                gh release upload $LATEST_TAG "dist/firefox/extension.xpi#Firefox Extension ($VERSION)"
+              fi
             else
               echo "Found release ID: $RELEASE_ID for tag $LATEST_TAG"
 
@@ -209,12 +234,12 @@ jobs:
               for FILE in $CHROME_FILES; do
                 FILENAME=$(basename "$FILE")
                 EXTENSION=${FILENAME##*.}
-                gh release upload $LATEST_TAG "$FILE#Chrome Extension ($VERSION).$EXTENSION"
+                gh release upload $LATEST_TAG "$FILE#Chrome Extension ($VERSION)"
               done
 
               # Upload Firefox extension
               if [ -f "dist/firefox/extension.xpi" ]; then
-                gh release upload $LATEST_TAG "dist/firefox/extension.xpi#Firefox Extension ($VERSION).xpi"
+                gh release upload $LATEST_TAG "dist/firefox/extension.xpi#Firefox Extension ($VERSION)"
               fi
 
               echo "Assets updated successfully for release $LATEST_TAG"
