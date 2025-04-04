@@ -41,7 +41,7 @@ jobs:
           zip -r firefox/dist/extension.xpi ./path/to/extension
 
       - name: Upload Chrome and Firefox artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: chrome-and-firefox-extensions
           path: |
