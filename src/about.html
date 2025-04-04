@@ -49,6 +49,22 @@
       box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
     }
 
+    input, select, textarea {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Dark theme specific styles */
+    html[data-theme="dark"] input,
+    html[data-theme="dark"] select,
+    html[data-theme="dark"] textarea,
+    [data-theme="dark"] input,
+    [data-theme="dark"] select,
+    [data-theme="dark"] textarea {
+      border: 1px solid var(--border-color) !important;
+      box-shadow: 0 1px 3px var(--shadow-color) !important;
+      background-color: var(--input-bg) !important;
+    }
+
     .donate-button {
       width: auto;
       display: inline-flex;

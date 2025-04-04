@@ -78,6 +78,39 @@ textarea,
   border-radius: 4px;
   font-size: 14px;
   max-width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure consistent styling in dark theme */
+[data-theme="dark"] select,
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] .option-group input[type="text"],
+[data-theme="dark"] .option-group input[type="number"],
+[data-theme="dark"] .option-group input[type="password"],
+html[data-theme="dark"] select,
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] .option-group input[type="text"],
+html[data-theme="dark"] .option-group input[type="number"],
+html[data-theme="dark"] .option-group input[type="password"] {
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--input-bg) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Specific styles for input fields in dark theme */
+[data-theme="dark"] #api-key,
+[data-theme="dark"] #model,
+[data-theme="dark"] #max-tokens,
+html[data-theme="dark"] #api-key,
+html[data-theme="dark"] #model,
+html[data-theme="dark"] #max-tokens {
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--input-bg) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
+  color: var(--text-color) !important;
 }
 
 input:focus,
@@ -85,7 +118,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: #ff0000 !important;
-  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
 }
 
 select, select.option-group, .option-group select, #language, #provider {

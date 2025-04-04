@@ -60,6 +60,21 @@ textarea:focus {
 }
 
 /* Additional dark theme styles */
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea,
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+body[data-theme="dark"] input,
+body[data-theme="dark"] select,
+body[data-theme="dark"] textarea {
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
+  background-color: var(--input-bg) !important;
+}
+
+/* Focus styles for dark theme */
 [data-theme="dark"] input:focus,
 [data-theme="dark"] select:focus,
 [data-theme="dark"] textarea:focus,
@@ -110,6 +125,7 @@ textarea {
   background-color: var(--input-bg);
   color: var(--text-color);
   border-color: var(--border-color);
+  box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 select, .option-group select, html select, body select, #language, #provider {

@@ -51,6 +51,36 @@ h1 {
   background-color: var(--input-bg);
   color: var(--text-color);
   box-sizing: border-box;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+/* Ensure consistent styling in dark theme */
+[data-theme="dark"] .option-group select,
+[data-theme="dark"] .option-group input[type="text"],
+[data-theme="dark"] .option-group input[type="password"],
+html[data-theme="dark"] .option-group select,
+html[data-theme="dark"] .option-group input[type="text"],
+html[data-theme="dark"] .option-group input[type="password"],
+body[data-theme="dark"] .option-group select,
+body[data-theme="dark"] .option-group input[type="text"],
+body[data-theme="dark"] .option-group input[type="password"] {
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--input-bg) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Specific styles for input fields in dark theme */
+[data-theme="dark"] #api-key,
+[data-theme="dark"] #model,
+html[data-theme="dark"] #api-key,
+html[data-theme="dark"] #model,
+body[data-theme="dark"] #api-key,
+body[data-theme="dark"] #model {
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--input-bg) !important;
+  box-shadow: 0 1px 3px var(--shadow-color) !important;
+  color: var(--text-color) !important;
 }
 
 .option-group input:focus,
@@ -59,7 +89,7 @@ input:focus,
 textarea:focus {
   outline: none;
   border-color: #ff0000 !important;
-  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
 }
 
 .option-group select, select, #language, #provider {
