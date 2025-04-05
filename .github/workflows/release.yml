@@ -34,12 +34,26 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Get Package Name and Version
+        id: package_info
+        run: |
+          # Set a default name if package.json doesn't have one
+          echo "PACKAGE_NAME=yt-ai-comments" >> $GITHUB_OUTPUT
+
+          # Get current version from package.json if available, otherwise use a placeholder
+          if [ -f "package.json" ] && [ "$(grep -c "version" package.json)" -gt 0 ]; then
+            VERSION=$(node -p "require('./package.json').version" 2>/dev/null || echo "0.0.0")
+          else
+            VERSION="0.0.0"
+          fi
+          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Prepare Chrome Extension
         run: |
           cp manifest/manifest-chrome.json src/manifest.json
           mkdir -p dist/chrome
           cd src
-          zip -r ../dist/chrome/extension.zip *
+          zip -r ../dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.zip *
           cd ..
 
       - name: Install Chrome for extension signing
@@ -52,26 +66,35 @@ jobs:
       - name: Sign Chrome Extension
         env:
           PEM: ${{ secrets.PEM }}
+        continue-on-error: true
+        id: chrome_signing
         run: |
           echo "$PEM" > private-key.pem
           mkdir -p dist/chrome/signed
           # Use Chrome's pack extension tool to sign the extension
           google-chrome --pack-extension=src --pack-extension-key=private-key.pem
           if [ -f "src.crx" ]; then
-            mv src.crx dist/chrome/signed/extension.crx
+            mv src.crx dist/chrome/signed/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.crx
+            echo "SIGNING_SUCCESS=true" >> $GITHUB_OUTPUT
           else
-            echo "Chrome signing failed, using unsigned zip instead"
-            cp dist/chrome/extension.zip dist/chrome/signed/extension.zip
+            echo "Chrome signing failed, will use unsigned zip instead"
+            echo "SIGNING_SUCCESS=false" >> $GITHUB_OUTPUT
           fi
           # Clean up private key
           rm private-key.pem
+
+      - name: Use Unsigned Chrome Extension if Signing Failed
+        if: steps.chrome_signing.outputs.SIGNING_SUCCESS != 'true'
+        run: |
+          echo "Using unsigned Chrome extension zip file"
+          cp dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.zip dist/chrome/signed/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.zip
 
       - name: Prepare Firefox Extension
         run: |
           cp manifest/manifest-firefox.json src/manifest.json
           mkdir -p dist/firefox
           cd src
-          zip -r ../dist/firefox/extension.xpi *
+          zip -r ../dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi *
           cd ..
 
       - name: Install web-ext tool
@@ -81,6 +104,8 @@ jobs:
         env:
           AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        continue-on-error: true
+        id: firefox_signing
         run: |
           mkdir -p dist/firefox/signed
           # Sign the extension using web-ext
@@ -88,14 +113,23 @@ jobs:
                       --api-key="$AMO_JWT_ISSUER" \
                       --api-secret="$AMO_JWT_SECRET" \
                       --channel=unlisted \
-                      --timeout=600000
-          # Move the signed XPI to our dist directory
-          find web-ext-artifacts -name "*.xpi" -exec mv {} dist/firefox/signed/extension.xpi \;
-          # If signing fails, use the unsigned version as fallback
-          if [ ! -f "dist/firefox/signed/extension.xpi" ]; then
-            echo "Firefox signing failed, using unsigned xpi instead"
-            cp dist/firefox/extension.xpi dist/firefox/signed/extension.xpi
+                      --timeout=600000 || echo "Firefox signing failed"
+
+          # Check if signing produced any artifacts
+          if [ -d "web-ext-artifacts" ] && [ "$(find web-ext-artifacts -name "*.xpi" | wc -l)" -gt 0 ]; then
+            # Move the signed XPI to our dist directory
+            find web-ext-artifacts -name "*.xpi" -exec mv {} dist/firefox/signed/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi \;
+            echo "SIGNING_SUCCESS=true" >> $GITHUB_OUTPUT
+          else
+            echo "No signed Firefox extension found"
+            echo "SIGNING_SUCCESS=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Use Unsigned Firefox Extension if Signing Failed
+        if: steps.firefox_signing.outputs.SIGNING_SUCCESS != 'true'
+        run: |
+          echo "Using unsigned Firefox extension xpi file"
+          cp dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi dist/firefox/signed/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi
 
       - name: Upload Chrome and Firefox artifacts
         uses: actions/upload-artifact@v4
@@ -197,13 +231,16 @@ jobs:
 
             # Upload Chrome extension files
             for FILE in $CHROME_FILES; do
-              gh release upload v1.0.0 "$FILE#Chrome Extension (1.0.0)"
+              FILENAME=$(basename "$FILE")
+              gh release upload v1.0.0 "$FILE#$FILENAME"
             done
 
             # Upload Firefox extension
-            if [ -f "dist/firefox/signed/extension.xpi" ]; then
-              gh release upload v1.0.0 "dist/firefox/signed/extension.xpi#Firefox Extension (1.0.0)"
-            fi
+            FIREFOX_FILES=$(find dist/firefox/signed -name "*.xpi")
+            for FILE in $FIREFOX_FILES; do
+              FILENAME=$(basename "$FILE")
+              gh release upload v1.0.0 "$FILE#$FILENAME"
+            done
           else
             echo "Latest tag: $LATEST_TAG"
 
@@ -225,13 +262,16 @@ jobs:
 
               # Upload Chrome extension files
               for FILE in $CHROME_FILES; do
-                gh release upload $LATEST_TAG "$FILE#Chrome Extension ($VERSION)"
+                FILENAME=$(basename "$FILE")
+                gh release upload $LATEST_TAG "$FILE#$FILENAME"
               done
 
               # Upload Firefox extension
-              if [ -f "dist/firefox/signed/extension.xpi" ]; then
-                gh release upload $LATEST_TAG "dist/firefox/signed/extension.xpi#Firefox Extension ($VERSION)"
-              fi
+              FIREFOX_FILES=$(find dist/firefox/signed -name "*.xpi")
+              for FILE in $FIREFOX_FILES; do
+                FILENAME=$(basename "$FILE")
+                gh release upload $LATEST_TAG "$FILE#$FILENAME"
+              done
             else
               echo "Found release ID: $RELEASE_ID for tag $LATEST_TAG"
 
@@ -256,14 +296,15 @@ jobs:
               CHROME_FILES=$(find dist/chrome/signed -name "*.crx" -o -name "*.zip")
               for FILE in $CHROME_FILES; do
                 FILENAME=$(basename "$FILE")
-                EXTENSION=${FILENAME##*.}
-                gh release upload $LATEST_TAG "$FILE#Chrome Extension ($VERSION)"
+                gh release upload $LATEST_TAG "$FILE#$FILENAME"
               done
 
               # Upload Firefox extension
-              if [ -f "dist/firefox/signed/extension.xpi" ]; then
-                gh release upload $LATEST_TAG "dist/firefox/signed/extension.xpi#Firefox Extension ($VERSION)"
-              fi
+              FIREFOX_FILES=$(find dist/firefox/signed -name "*.xpi")
+              for FILE in $FIREFOX_FILES; do
+                FILENAME=$(basename "$FILE")
+                gh release upload $LATEST_TAG "$FILE#$FILENAME"
+              done
 
               echo "Assets updated successfully for release $LATEST_TAG"
             fi
