@@ -86,7 +86,10 @@ body[data-theme="dark"] #model {
 .option-group input:focus,
 .option-group textarea:focus,
 input:focus,
-textarea:focus {
+textarea:focus,
+#api-key:focus,
+#model:focus,
+#max-tokens:focus {
   outline: none;
   border-color: #ff0000 !important;
   box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;

@@ -53,7 +53,10 @@ body[data-theme="dark"] {
 /* Focus styles for all themes */
 input:focus,
 select:focus,
-textarea:focus {
+textarea:focus,
+#api-key:focus,
+#model:focus,
+#max-tokens:focus {
   outline: none !important;
   border-color: #ff0000 !important;
   box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
@@ -78,12 +81,21 @@ body[data-theme="dark"] textarea {
 [data-theme="dark"] input:focus,
 [data-theme="dark"] select:focus,
 [data-theme="dark"] textarea:focus,
+[data-theme="dark"] #api-key:focus,
+[data-theme="dark"] #model:focus,
+[data-theme="dark"] #max-tokens:focus,
 html[data-theme="dark"] input:focus,
 html[data-theme="dark"] select:focus,
 html[data-theme="dark"] textarea:focus,
+html[data-theme="dark"] #api-key:focus,
+html[data-theme="dark"] #model:focus,
+html[data-theme="dark"] #max-tokens:focus,
 body[data-theme="dark"] input:focus,
 body[data-theme="dark"] select:focus,
-body[data-theme="dark"] textarea:focus {
+body[data-theme="dark"] textarea:focus,
+body[data-theme="dark"] #api-key:focus,
+body[data-theme="dark"] #model:focus,
+body[data-theme="dark"] #max-tokens:focus {
   outline: none !important;
   border-color: #ff0000 !important;
   box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;

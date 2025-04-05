@@ -115,7 +115,10 @@ html[data-theme="dark"] #max-tokens {
 
 input:focus,
 textarea:focus,
-select:focus {
+select:focus,
+#api-key:focus,
+#model:focus,
+#max-tokens:focus {
   outline: none;
   border-color: #ff0000 !important;
   box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;

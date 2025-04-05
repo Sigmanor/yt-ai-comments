@@ -22,7 +22,10 @@
 
     input:focus,
     textarea:focus,
-    select:focus {
+    select:focus,
+    #api-key:focus,
+    #model:focus,
+    #max-tokens:focus {
       outline: none !important;
       border-color: #ff0000 !important;
       box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
@@ -91,6 +94,7 @@
 
     input[type=number] {
       -moz-appearance: textfield; /* Firefox */
+      appearance: textfield; /* Standard property */
     }
   </style>
 </head>
