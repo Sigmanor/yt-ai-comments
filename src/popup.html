@@ -54,14 +54,44 @@
       gap: 8px;
       width: 100%;
       margin-top: 8px;
+      justify-content: center;
     }
 
-    .blue-button {
-      background-color: #1a73e8;
+    .icon-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
     }
 
-    .blue-button:hover {
-      background-color: #1557b0;
+    .icon-button:hover {
+      background-color: #e0e0e0;
+      transform: scale(1.05);
+    }
+
+    .icon-button img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    /* Dark theme specific styles for icon buttons */
+    html[data-theme="dark"] .icon-button,
+    [data-theme="dark"] .icon-button {
+      background-color: #444;
+      border: 1px solid #555;
+    }
+
+    html[data-theme="dark"] .icon-button:hover,
+    [data-theme="dark"] .icon-button:hover {
+      background-color: #555;
     }
   </style>
 </head>
@@ -102,8 +132,15 @@
     </div>
 
     <div class="button-group">
-      <button id="about-btn" class="blue-button">About</button>
-      <button id="options-btn">More Settings</button>
+      <button id="about-btn" class="icon-button" title="About">
+        <img src="icons/help.png" alt="About">
+      </button>
+      <button id="options-btn" class="icon-button" title="More Settings">
+        <img src="icons/setting.png" alt="Settings">
+      </button>
+      <button id="donate-btn" class="icon-button" title="Support author via PayPal">
+        <img src="icons/paypal.png" alt="PayPal">
+      </button>
     </div>
   </div>
   <script src="popup.js"></script>

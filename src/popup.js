@@ -188,4 +188,10 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.create({ url: chrome.runtime.getURL('about.html') });
     window.close(); // Close the popup after opening about page
   });
+
+  // Open PayPal donation page when button is clicked and close the popup
+  document.getElementById('donate-btn').addEventListener('click', function () {
+    chrome.tabs.create({ url: 'https://www.paypal.com/donate/?hosted_button_id=JD8VFJT82ZY66' });
+    window.close(); // Close the popup after opening PayPal page
+  });
 });
