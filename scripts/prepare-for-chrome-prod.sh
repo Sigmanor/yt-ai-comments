@@ -10,15 +10,15 @@ if [ ! -d "src" ]; then
   exit 1
 fi
 
-# Check if manifest-chrome.json exists
-if [ ! -f "manifest/manifest-chrome.json" ]; then
-  echo "Error: 'manifest/manifest-chrome.json' file not found!"
+# Check if manifest-chrome-prod.json exists
+if [ ! -f "manifest/manifest-chrome-prod.json" ]; then
+  echo "Error: 'manifest/manifest-chrome-prod.json' file not found!"
   exit 1
 fi
 
 # Replace manifest.json with the Chrome version
 echo "Replacing manifest.json with the Chrome version..."
-cp manifest/manifest-chrome.json src/manifest.json
+cp manifest/manifest-chrome-prod.json src/manifest.json
 
 echo "Done! Now you can install the extension in Chrome."
 echo "To install in Chrome, go to chrome://extensions/"
