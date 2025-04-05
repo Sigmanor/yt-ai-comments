@@ -4,6 +4,7 @@
 
 [![Build and Release Extension](https://github.com/Sigmanor/yt-ai-comments/actions/workflows/release.yml/badge.svg)](https://github.com/Sigmanor/yt-ai-comments/actions/workflows/release.yml)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-Available-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/youtube-ai-comments-gener/ikdjiofmkibkjecaknpmolmibjbkgalo)
 
 YouTube AI Comments Generator is a browser extension that helps you craft engaging and insightful comments for YouTube videos using AI. It supports multiple languages and various AI providers, making it easy to interact with your favorite creators and show your support effortlessly!
 
@@ -24,11 +25,11 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 <details>
 <summary style="cursor: pointer;">Click to expand</summary>
 
-![Screenshot 1](screenshots/2.png)
+![Screenshot 1](assets/readme-screenshots/0.png)
 
-![Screenshot 2](screenshots/3.png)
+![Screenshot 2](assets/readme-screenshots/1.png)
 
-![Screenshot 3](screenshots/4.png)
+![Screenshot 3](assets/readme-screenshots/2.png)
 
 </details>
 
@@ -38,6 +39,13 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 - OpenAI or MistralAI API key
 
 ## 🔧 Installation
+
+### Chrome Web Store
+
+1. Visit the [Chrome Web Store page](https://chromewebstore.google.com/detail/youtube-ai-comments-gener/ikdjiofmkibkjecaknpmolmibjbkgalo)
+2. Click the "Add to Chrome" button
+3. Confirm the installation when prompted
+4. The extension will be automatically installed and ready to use
 
 ### From Releases
 
