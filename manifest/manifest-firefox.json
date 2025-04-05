@@ -4,9 +4,7 @@
   "version": "1.2.1",
   "description": "Generates comments to support YouTube creators",
   "browser_specific_settings": {
-    "gecko": {
-      "id": "youtube-ai-comments@example.com"
-    }
+    "gecko": {}
   },
   "permissions": [
     "storage",
