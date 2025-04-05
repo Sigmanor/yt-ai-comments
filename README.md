@@ -58,27 +58,19 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 
 ### Manual Installation
 
-#### Chrome
+### Chrome
 
 1. Download or clone this repository
-2. Run `./scripts/prepare-for-chrome.sh` to set up the Chrome manifest
+2. Run `./scripts/prepare-for-chrome-prod.sh` to set up the Chrome manifest
 3. Open Chrome and navigate to `chrome://extensions/`
 4. Enable "Developer mode" (toggle in the top right corner)
 5. Click "Load unpacked extension"
 6. Select the `src` folder of this project
 
-#### Firefox
-
-##### Using the Signed Extension (Recommended)
-
-1. Download the `.xpi` file from the [Releases](https://github.com/Sigmanor/yt-ai-comments/releases) page
-2. Firefox will automatically prompt you to install the extension
-3. Click "Add" to install the extension permanently
-
-##### Manual Installation (Development)
+### Firefox
 
 1. Download or clone this repository
-2. Run `./scripts/prepare-for-firefox.sh` to set up the Firefox manifest
+2. Run `./scripts/prepare-for-firefox-dev.sh` to set up the Firefox development manifest
 3. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
 4. Click "Load Temporary Add-on"
 5. Select the `manifest.json` file in the `src` folder
@@ -86,6 +78,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 ## 🚀 Usage
 
 1. **Set Up the Extension**:
+
    - Click the extension icon in your browser toolbar
    - Click "More Settings" to access the full settings page
    - Enter your API key (OpenAI or MistralAI)
@@ -102,16 +95,16 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 
 ## ⚙️ Configuration Options
 
-| Setting | Description | Default |
-|---------|-------------|--------|
-| **Comment Language** | Language for generated comments | English |
-| **AI Provider** | Choose between OpenAI and MistralAI | OpenAI |
-| **API Key** | Your API key for the selected provider | - |
-| **Model** | AI model to use for generation | gpt-4o-mini (OpenAI) or mistral-small-latest (MistralAI) |
-| **Max Tokens** | Maximum length of generated comments | 2000 |
-| **Temperature** | Creativity level (0.0-1.0) | 0.5 |
-| **Theme** | UI appearance (Light, Dark, or Auto) | Auto (System) |
-| **Prompt** | Template for comment generation | Supportive comment template |
+| Setting              | Description                            | Default                                                                                                                                      |
+| -------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Comment Language** | Language for generated comments        | English                                                                                                                                      |
+| **AI Provider**      | Choose between OpenAI and MistralAI    | OpenAI                                                                                                                                       |
+| **API Key**          | Your API key for the selected provider | -                                                                                                                                            |
+| **Model**            | AI model to use for generation         | gpt-4o-mini (OpenAI) or mistral-small-latest (MistralAI)                                                                                     |
+| **Max Tokens**       | Maximum length of generated comments   | 2000                                                                                                                                         |
+| **Temperature**      | Creativity level (0.0-1.0)             | 0.5                                                                                                                                          |
+| **Theme**            | UI appearance (Light, Dark, or Auto)   | Auto (System)                                                                                                                                |
+| **Prompt**           | Template for comment generation        | Write a positive comment to support the YouTube video creator. The comment should be friendly. No less than 10 words, no more than 20 words. |
 
 ## 🔑 Getting API Keys
 
@@ -137,12 +130,14 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 
 ```
 ├── manifest/               # Browser-specific manifest files
-│   ├── manifest-chrome.json
-│   └── manifest-firefox.json
+│   ├── manifest-chrome-prod.json
+│   ├── manifest-firefox-prod.json
+│   └── manifest-firefox-dev.json
 ├── scripts/                # Build and preparation scripts
 │   ├── deploy.sh           # Main deployment script
-│   ├── prepare-for-chrome.sh
-│   └── prepare-for-firefox.sh
+│   ├── prepare-for-chrome-prod.sh
+│   ├── prepare-for-firefox-prod.sh
+│   └── prepare-for-firefox-dev.sh
 ├── src/                    # Extension source code
 │   ├── background.js       # Background service worker
 │   ├── content.js          # YouTube page integration
@@ -156,6 +151,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 ### Building From Source
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/Sigmanor/yt-ai-comments.git
    cd yt-ai-comments
