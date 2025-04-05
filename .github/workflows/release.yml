@@ -34,26 +34,59 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Get Package Name and Version
+      - name: Get Package Name and Versions
         id: package_info
         run: |
-          # Set a default name if package.json doesn't have one
+          # Set default name
           echo "PACKAGE_NAME=yt-ai-comments" >> $GITHUB_OUTPUT
 
-          # Get current version from package.json if available, otherwise use a placeholder
-          if [ -f "package.json" ] && [ "$(grep -c "version" package.json)" -gt 0 ]; then
-            VERSION=$(node -p "require('./package.json').version" 2>/dev/null || echo "0.0.0")
+          # Function to extract version from manifest file
+          extract_version() {
+            local manifest_file=$1
+            local version=""
+
+            if [ -f "$manifest_file" ]; then
+              # Try with grep and cut first
+              version=$(grep -o '"version": "[^"]*"' "$manifest_file" | cut -d'"' -f4)
+
+              if [ -z "$version" ] && command -v jq &> /dev/null; then
+                # Try with jq if grep failed
+                version=$(jq -r '.version' "$manifest_file")
+                if [ "$version" = "null" ]; then
+                  version=""
+                fi
+              fi
+            fi
+
+            echo "$version"
+          }
+
+          # Get Chrome version
+          CHROME_VERSION=$(extract_version "manifest/manifest-chrome.json")
+          if [ -n "$CHROME_VERSION" ]; then
+            echo "CHROME_VERSION=$CHROME_VERSION" >> $GITHUB_OUTPUT
+            echo "Using Chrome version from manifest: $CHROME_VERSION"
           else
-            VERSION="0.0.0"
+            echo "CHROME_VERSION=1.0.0" >> $GITHUB_OUTPUT
+            echo "Using default Chrome version: 1.0.0"
           fi
-          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+          # Get Firefox version
+          FIREFOX_VERSION=$(extract_version "manifest/manifest-firefox.json")
+          if [ -n "$FIREFOX_VERSION" ]; then
+            echo "FIREFOX_VERSION=$FIREFOX_VERSION" >> $GITHUB_OUTPUT
+            echo "Using Firefox version from manifest: $FIREFOX_VERSION"
+          else
+            echo "FIREFOX_VERSION=1.0.0" >> $GITHUB_OUTPUT
+            echo "Using default Firefox version: 1.0.0"
+          fi
 
       - name: Prepare Chrome Extension
         run: |
           cp manifest/manifest-chrome.json src/manifest.json
           mkdir -p dist/chrome
           cd src
-          zip -r ../dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.zip *
+          zip -r ../dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.CHROME_VERSION }}.zip *
           cd ..
 
       - name: Install Chrome for extension signing
@@ -74,7 +107,7 @@ jobs:
           # Use Chrome's pack extension tool to sign the extension
           google-chrome --pack-extension=src --pack-extension-key=private-key.pem
           if [ -f "src.crx" ]; then
-            mv src.crx dist/chrome/signed/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.crx
+            mv src.crx dist/chrome/signed/yt-ai-comments-chrome-v${{ steps.package_info.outputs.CHROME_VERSION }}.crx
             echo "SIGNING_SUCCESS=true" >> $GITHUB_OUTPUT
           else
             echo "Chrome signing failed, will use unsigned zip instead"
@@ -87,14 +120,14 @@ jobs:
         if: steps.chrome_signing.outputs.SIGNING_SUCCESS != 'true'
         run: |
           echo "Using unsigned Chrome extension zip file"
-          cp dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.zip dist/chrome/signed/yt-ai-comments-chrome-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.zip
+          cp dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.CHROME_VERSION }}.zip dist/chrome/signed/yt-ai-comments-chrome-v${{ steps.package_info.outputs.CHROME_VERSION }}.zip
 
       - name: Prepare Firefox Extension
         run: |
           cp manifest/manifest-firefox.json src/manifest.json
           mkdir -p dist/firefox
           cd src
-          zip -r ../dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi *
+          zip -r ../dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.FIREFOX_VERSION }}.xpi *
           cd ..
 
       - name: Install web-ext tool
@@ -118,7 +151,7 @@ jobs:
           # Check if signing produced any artifacts
           if [ -d "web-ext-artifacts" ] && [ "$(find web-ext-artifacts -name "*.xpi" | wc -l)" -gt 0 ]; then
             # Move the signed XPI to our dist directory
-            find web-ext-artifacts -name "*.xpi" -exec mv {} dist/firefox/signed/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi \;
+            find web-ext-artifacts -name "*.xpi" -exec mv {} dist/firefox/signed/yt-ai-comments-firefox-v${{ steps.package_info.outputs.FIREFOX_VERSION }}.xpi \;
             echo "SIGNING_SUCCESS=true" >> $GITHUB_OUTPUT
           else
             echo "No signed Firefox extension found"
@@ -129,7 +162,7 @@ jobs:
         if: steps.firefox_signing.outputs.SIGNING_SUCCESS != 'true'
         run: |
           echo "Using unsigned Firefox extension xpi file"
-          cp dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi dist/firefox/signed/yt-ai-comments-firefox-v${{ steps.package_info.outputs.PACKAGE_VERSION }}.xpi
+          cp dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.FIREFOX_VERSION }}.xpi dist/firefox/signed/yt-ai-comments-firefox-v${{ steps.package_info.outputs.FIREFOX_VERSION }}.xpi
 
       - name: Upload Chrome and Firefox artifacts
         uses: actions/upload-artifact@v4
