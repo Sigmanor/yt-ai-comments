@@ -1,21 +1,18 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "YouTube AI Comments Generator",
   "version": "1.2.1",
   "description": "Generates comments to support YouTube creators",
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "youtube-ai-comments@example.com"
-    }
-  },
   "permissions": [
     "storage",
     "activeTab",
-    "tabs",
+    "tabs"
+  ],
+  "host_permissions": [
     "https://*.youtube.com/*",
     "https://api.github.com/repos/Sigmanor/yt-ai-comments/*"
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
@@ -41,12 +38,17 @@
     }
   ],
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "service_worker": "background.js"
   },
   "web_accessible_resources": [
-    "about.html"
+    {
+      "resources": [
+        "about.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
   ],
   "icons": {
     "16": "icons/icon16.png",
