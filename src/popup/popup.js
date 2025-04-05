@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Open about page when button is clicked and close the popup
   document.getElementById('about-btn').addEventListener('click', function () {
-    chrome.tabs.create({ url: chrome.runtime.getURL('about.html') });
+    chrome.tabs.create({ url: chrome.runtime.getURL('about/about.html') });
     window.close(); // Close the popup after opening about page
   });
 

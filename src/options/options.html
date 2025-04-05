@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>yt-ai-comments</title>
   <link rel="stylesheet" href="options.css">
-  <link rel="stylesheet" href="themes.css">
-  <link rel="icon" href="icons/setting.png" type="image/png">
+  <link rel="stylesheet" href="../styles/themes.css">
+  <link rel="icon" href="../icons/setting.png" type="image/png">
   <style>
     select {
       cursor: pointer !important;
@@ -31,7 +31,9 @@
       box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
     }
 
@@ -93,28 +95,34 @@
     }
 
     input[type=number] {
-      -moz-appearance: textfield; /* Firefox */
-      appearance: textfield; /* Standard property */
+      -moz-appearance: textfield;
+      /* Firefox */
+      appearance: textfield;
+      /* Standard property */
     }
 
     /* Button styles */
     #save-btn {
-      background-color: #4CAF50 !important; /* Green color */
+      background-color: #4CAF50 !important;
+      /* Green color */
       color: white !important;
     }
 
     #save-btn:hover {
-      background-color: #45a049 !important; /* Darker green on hover */
+      background-color: #45a049 !important;
+      /* Darker green on hover */
     }
 
     #reset-btn {
-      background-color: #f0f0f0 !important; /* Light gray color */
+      background-color: #f0f0f0 !important;
+      /* Light gray color */
       color: #333 !important;
       border: 1px solid #ccc !important;
     }
 
     #reset-btn:hover {
-      background-color: #e0e0e0 !important; /* Darker gray on hover */
+      background-color: #e0e0e0 !important;
+      /* Darker gray on hover */
     }
 
     /* Dark theme specific button styles */
@@ -135,7 +143,7 @@
 <body>
   <div class="container">
     <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-      <img src="icons/setting.png" alt="Extension Icon" style="width: 30px; height: 30px; margin-right: 10px;">
+      <img src="../icons/setting.png" alt="Extension Icon" style="width: 30px; height: 30px; margin-right: 10px;">
       <h2 style="margin: 0;">YouTube AI Comments Generator Settings</h2>
     </div>
 
@@ -210,7 +218,7 @@
     <div id="status" class="status"></div>
   </div>
   <div id="about-button" title="About YouTube AI Comments Generator">
-    <img src="icons/help.png" alt="About">
+    <img src="../icons/help.png" alt="About">
   </div>
 
   <script src="options.js"></script>
