@@ -13,7 +13,7 @@
   --reset-button-bg: #888;
   --reset-button-hover: #666;
   --slider-bg: #ddd;
-  --slider-thumb: #ff0000;
+  --slider-thumb: #556fa2d9;
   --info-text: #999;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --success-bg: #e6f4ea;
@@ -39,7 +39,7 @@ body[data-theme="dark"] {
   --reset-button-bg: #666;
   --reset-button-hover: #888;
   --slider-bg: #555;
-  --slider-thumb: #ff0000;
+  --slider-thumb: #556fa2d9;
   --info-text: #aaa;
   --shadow-color: rgba(0, 0, 0, 0.3);
   --success-bg: #1e3a29;
@@ -58,8 +58,8 @@ textarea:focus,
 #model:focus,
 #max-tokens:focus {
   outline: none !important;
-  border-color: #ff0000 !important;
-  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+  border-color: #556fa2d9 !important;
+  box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
 }
 
 /* Additional dark theme styles */
@@ -97,8 +97,8 @@ body[data-theme="dark"] #api-key:focus,
 body[data-theme="dark"] #model:focus,
 body[data-theme="dark"] #max-tokens:focus {
   outline: none !important;
-  border-color: #ff0000 !important;
-  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+  border-color: #556fa2d9 !important;
+  box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
 }
 
 /* Apply theme variables to elements */

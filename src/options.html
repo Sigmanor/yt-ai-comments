@@ -27,8 +27,8 @@
     #model:focus,
     #max-tokens:focus {
       outline: none !important;
-      border-color: #ff0000 !important;
-      box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+      border-color: #556fa2d9 !important;
+      box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
     }
 
     input, select, textarea {
@@ -95,6 +95,39 @@
     input[type=number] {
       -moz-appearance: textfield; /* Firefox */
       appearance: textfield; /* Standard property */
+    }
+
+    /* Button styles */
+    #save-btn {
+      background-color: #4CAF50 !important; /* Green color */
+      color: white !important;
+    }
+
+    #save-btn:hover {
+      background-color: #45a049 !important; /* Darker green on hover */
+    }
+
+    #reset-btn {
+      background-color: #f0f0f0 !important; /* Light gray color */
+      color: #333 !important;
+      border: 1px solid #ccc !important;
+    }
+
+    #reset-btn:hover {
+      background-color: #e0e0e0 !important; /* Darker gray on hover */
+    }
+
+    /* Dark theme specific button styles */
+    html[data-theme="dark"] #reset-btn,
+    [data-theme="dark"] #reset-btn {
+      background-color: #555 !important;
+      color: #eee !important;
+      border: 1px solid #666 !important;
+    }
+
+    html[data-theme="dark"] #reset-btn:hover,
+    [data-theme="dark"] #reset-btn:hover {
+      background-color: #666 !important;
     }
   </style>
 </head>

@@ -120,8 +120,8 @@ select:focus,
 #model:focus,
 #max-tokens:focus {
   outline: none;
-  border-color: #ff0000 !important;
-  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3) !important;
+  border-color: #556fa2d9 !important;
+  box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
 }
 
 select, select.option-group, .option-group select, #language, #provider {
@@ -169,7 +169,7 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 15px;
   height: 15px;
-  background: #ff0000;
+  background: #556fa2d9;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -177,7 +177,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
   width: 15px;
   height: 15px;
-  background: #ff0000;
+  background: #556fa2d9;
   border-radius: 50%;
   cursor: pointer;
   border: none;
@@ -185,7 +185,7 @@ input[type="range"]::-moz-range-thumb {
 
 #temperature-value {
   font-weight: normal;
-  color: #ff0000;
+  color: #556fa2d9;
   display: inline-block;
   min-width: 30px;
 }
@@ -209,6 +209,14 @@ button {
 
 button:hover {
   background-color: #cc0000;
+}
+
+#save-btn {
+  background-color: #4CAF50;
+}
+
+#save-btn:hover {
+  background-color: #45a049;
 }
 
 #reset-btn {
