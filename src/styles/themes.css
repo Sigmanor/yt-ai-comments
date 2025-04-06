@@ -1,33 +1,9 @@
 /* Theme styles for YouTube AI Comments Generator */
 
-/* Light theme (default) */
-:root {
-  --bg-color: #f5f5f5;
-  --container-bg: white;
-  --text-color: #333;
-  --label-color: #555;
-  --border-color: #ddd;
-  --input-bg: white;
-  --button-bg: #ff0000;
-  --button-hover: #cc0000;
-  --reset-button-bg: #888;
-  --reset-button-hover: #666;
-  --slider-bg: #ddd;
-  --slider-thumb: #556fa2d9;
-  --info-text: #999;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --success-bg: #e6f4ea;
-  --success-color: #137333;
-  --success-border: #137333;
-  --error-bg: #fce8e6;
-  --error-color: #c5221f;
-  --error-border: #c5221f;
-}
-
-/* Dark theme */
-[data-theme="dark"],
-html[data-theme="dark"] body,
-body[data-theme="dark"] {
+/* Dark theme (default) */
+:root,
+html,
+body {
   --bg-color: #222;
   --container-bg: #333;
   --text-color: #eee;
@@ -62,40 +38,22 @@ textarea:focus,
   box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
 }
 
-/* Additional dark theme styles */
-[data-theme="dark"] input,
-[data-theme="dark"] select,
-[data-theme="dark"] textarea,
-html[data-theme="dark"] input,
-html[data-theme="dark"] select,
-html[data-theme="dark"] textarea,
-body[data-theme="dark"] input,
-body[data-theme="dark"] select,
-body[data-theme="dark"] textarea {
+/* Input styles */
+input,
+select,
+textarea {
   border: 1px solid var(--border-color) !important;
   box-shadow: 0 1px 3px var(--shadow-color) !important;
   background-color: var(--input-bg) !important;
 }
 
-/* Focus styles for dark theme */
-[data-theme="dark"] input:focus,
-[data-theme="dark"] select:focus,
-[data-theme="dark"] textarea:focus,
-[data-theme="dark"] #api-key:focus,
-[data-theme="dark"] #model:focus,
-[data-theme="dark"] #max-tokens:focus,
-html[data-theme="dark"] input:focus,
-html[data-theme="dark"] select:focus,
-html[data-theme="dark"] textarea:focus,
-html[data-theme="dark"] #api-key:focus,
-html[data-theme="dark"] #model:focus,
-html[data-theme="dark"] #max-tokens:focus,
-body[data-theme="dark"] input:focus,
-body[data-theme="dark"] select:focus,
-body[data-theme="dark"] textarea:focus,
-body[data-theme="dark"] #api-key:focus,
-body[data-theme="dark"] #model:focus,
-body[data-theme="dark"] #max-tokens:focus {
+/* Focus styles */
+input:focus,
+select:focus,
+textarea:focus,
+#api-key:focus,
+#model:focus,
+#max-tokens:focus {
   outline: none !important;
   border-color: #556fa2d9 !important;
   box-shadow: 0 0 3px rgba(85, 111, 162, 0.3) !important;
@@ -109,11 +67,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Ensure dark theme is applied even if the attribute is only on html */
-html[data-theme="dark"] body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
+/* Body styles */
 
 .container {
   background-color: var(--container-bg);
@@ -144,15 +98,10 @@ select, .option-group select, html select, body select, #language, #provider {
   cursor: pointer !important;
 }
 
-/* Specific style for theme selector */
-#theme, select#theme, .option-group #theme, html #theme, body #theme {
-  cursor: pointer !important;
-}
+/* Theme selector removed */
 
-/* Ensure select options are styled correctly in dark mode */
-[data-theme="dark"] select option,
-html[data-theme="dark"] select option,
-body[data-theme="dark"] select option {
+/* Select options styles */
+select option {
   background-color: var(--input-bg);
   color: var(--text-color);
 }
@@ -203,32 +152,4 @@ input[type="range"]::-moz-range-thumb {
   border-color: var(--error-border);
 }
 
-/* Theme toggle button styles */
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.theme-toggle button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-left: 10px;
-}
-
-.theme-toggle button:hover {
-  background-color: var(--border-color);
-}
-
-.theme-toggle button svg {
-  margin-right: 5px;
-}
+/* Theme toggle button styles removed */
