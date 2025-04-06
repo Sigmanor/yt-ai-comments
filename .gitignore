@@ -1,3 +1,4 @@
 extension-key.pem
 dist/
 .vscode/
+node_modules/
