@@ -18,7 +18,6 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 - **Multiple Language Support**: Generate comments in Ukrainian, English, Polish, German, and French
 - **Customizable AI Models**: Choose between different models (GPT-4o, Mistral Large, etc.)
 - **Adjustable Parameters**: Configure max tokens and temperature for fine-tuned generation
-- **Theme Support**: Light, Dark, and System theme options for comfortable usage
 - **Seamless YouTube Integration**: Generate button appears directly in YouTube's comment field
 - **Video Context Awareness**: Automatically includes video title in the generation prompt
 
@@ -103,7 +102,6 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 | **Model**            | AI model to use for generation         | gpt-4o-mini (OpenAI) or mistral-small-latest (MistralAI)                                                                                     |
 | **Max Tokens**       | Maximum length of generated comments   | 2000                                                                                                                                         |
 | **Temperature**      | Creativity level (0.0-1.0)             | 0.5                                                                                                                                          |
-| **Theme**            | UI appearance (Light, Dark, or Auto)   | Auto (System)                                                                                                                                |
 | **Prompt**           | Template for comment generation        | Write a positive comment to support the YouTube video creator. The comment should be friendly. No less than 10 words, no more than 20 words. |
 
 ## 🔑 Getting API Keys
