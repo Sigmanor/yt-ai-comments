@@ -1,8 +1,24 @@
 {
+  "name": "yt-ai-comments",
+  "version": "1.2.1",
+  "description": "YouTube AI Comments Generator",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build.js",
+    "build:chrome": "node scripts/build.js chrome",
+    "build:firefox": "node scripts/build.js firefox",
+    "prepare:chrome": "node scripts/prepare.js chrome",
+    "prepare:firefox": "node scripts/prepare.js firefox",
+    "prepare:firefox:dev": "node scripts/prepare.js firefox-dev"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
     "@semantic-release/github": "^8.0.0",
-    "semantic-release": "^21.0.0"
+    "semantic-release": "^21.0.0",
+    "vite": "^5.0.0",
+    "fs-extra": "^11.2.0",
+    "archiver": "^6.0.1"
   }
 }

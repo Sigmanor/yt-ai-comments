@@ -60,19 +60,21 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 ### Chrome
 
 1. Download or clone this repository
-2. Run `./scripts/prepare-for-chrome-prod.sh` to set up the Chrome manifest
-3. Open Chrome and navigate to `chrome://extensions/`
-4. Enable "Developer mode" (toggle in the top right corner)
-5. Click "Load unpacked extension"
-6. Select the `src` folder of this project
+2. Install dependencies: `npm install`
+3. Run `npm run prepare:chrome` to set up the Chrome manifest
+4. Open Chrome and navigate to `chrome://extensions/`
+5. Enable "Developer mode" (toggle in the top right corner)
+6. Click "Load unpacked extension"
+7. Select the `src` folder of this project
 
 ### Firefox
 
 1. Download or clone this repository
-2. Run `./scripts/prepare-for-firefox-dev.sh` to set up the Firefox development manifest
-3. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
-4. Click "Load Temporary Add-on"
-5. Select the `manifest.json` file in the `src` folder
+2. Install dependencies: `npm install`
+3. Run `npm run prepare:firefox:dev` to set up the Firefox development manifest
+4. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
+5. Click "Load Temporary Add-on"
+6. Select the `manifest.json` file in the `src` folder
 
 ## 🚀 Usage
 
@@ -132,17 +134,16 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 │   ├── manifest-firefox-prod.json
 │   └── manifest-firefox-dev.json
 ├── scripts/                # Build and preparation scripts
-│   ├── deploy.sh           # Main deployment script
-│   ├── prepare-for-chrome-prod.sh
-│   ├── prepare-for-firefox-prod.sh
-│   └── prepare-for-firefox-dev.sh
+│   ├── build.js            # Main build script
+│   └── prepare.js          # Browser-specific preparation script
 ├── src/                    # Extension source code
-│   ├── background.js       # Background service worker
-│   ├── content.js          # YouTube page integration
-│   ├── options.html/js/css # Settings page
-│   ├── popup.html/js/css   # Popup interface
-│   ├── themes.css          # Theme styling
+│   ├── background/         # Background service worker
+│   ├── content/            # YouTube page integration
+│   ├── options/            # Settings page
+│   ├── popup/              # Popup interface
+│   ├── styles/             # Theme styling
 │   └── icons/              # Extension icons
+├── vite.config.js          # Vite configuration
 └── .github/workflows/      # CI/CD configuration
 ```
 
@@ -155,13 +156,29 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
    cd yt-ai-comments
    ```
 
-2. No dependencies installation is required for local development. The package.json file is only used for the CI/CD pipeline with semantic-release.
-
-3. Build extensions for both browsers:
+2. Install dependencies:
    ```bash
-   ./scripts/deploy.sh
+   npm install
+   ```
+
+3. Development mode (optional):
+   ```bash
+   npm run dev
+   ```
+   This will start a development server for UI components.
+
+4. Build extensions for both browsers:
+   ```bash
+   npm run build
    ```
    This will create extension packages in the `dist` directory.
+
+5. Build for a specific browser:
+   ```bash
+   npm run build:chrome
+   # or
+   npm run build:firefox
+   ```
 
 ## 📝 License
 
