@@ -143,7 +143,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 │   ├── popup/              # Popup interface
 │   ├── styles/             # Theme styling
 │   └── icons/              # Extension icons
-├── vite.config.js          # Vite configuration
+
 └── .github/workflows/      # CI/CD configuration
 ```
 
@@ -161,19 +161,13 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
    npm install
    ```
 
-3. Development mode (optional):
-   ```bash
-   npm run dev
-   ```
-   This will start a development server for UI components.
-
-4. Build extensions for both browsers:
+3. Build extensions for both browsers:
    ```bash
    npm run build
    ```
    This will create extension packages in the `dist` directory.
 
-5. Build for a specific browser:
+4. Build for a specific browser:
    ```bash
    npm run build:chrome
    # or
