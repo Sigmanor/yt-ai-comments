@@ -6,7 +6,7 @@ const defaultOptions = {
   model: '',  // Will be set dynamically based on provider
   maxTokens: 2000,
   temperature: 0.5,
-  theme: 'auto', // Auto = system theme, can be 'light', 'dark', or 'auto'
+  theme: 'dark', // Only dark theme is used
   prompt: 'Write a positive comment to support the YouTube video creator. The comment should be friendly. No less than 10 words, no more than 20 words.'
 };
 
@@ -78,45 +78,49 @@ function loadFromStorage(keys) {
   });
 }
 
-// Function to apply theme based on selection or system preference
-function applyTheme(theme) {
-  console.log('Applying theme:', theme);
+// Function to get color based on temperature (0 = cold/blue, 1 = hot/red)
+function getTemperatureColor(temperature) {
+  // Convert temperature to a value between 0 and 1
+  const temp = parseFloat(temperature);
+  if (isNaN(temp)) return '#f2c53c'; // Default yellow if invalid
 
-  // Remove any existing theme attribute from both html and body
-  document.documentElement.removeAttribute('data-theme');
-  document.body.removeAttribute('data-theme');
-
-  if (theme === 'dark') {
-    // Apply dark theme to both html and body elements
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.body.setAttribute('data-theme', 'dark');
-    console.log('Dark theme applied, data-theme attribute set on HTML and BODY');
-  } else if (theme === 'light') {
-    // Light theme is default, no need to add attribute
-    console.log('Light theme applied, no data-theme attribute needed');
-  } else if (theme === 'auto') {
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.body.setAttribute('data-theme', 'dark');
-      console.log('Auto theme: system is dark, data-theme attribute set on HTML and BODY');
-    } else {
-      console.log('Auto theme: system is light, no data-theme attribute needed');
-    }
-
-    // Add listener for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (e.matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.body.setAttribute('data-theme', 'dark');
-        console.log('System theme changed to dark, data-theme attribute set');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        document.body.removeAttribute('data-theme');
-        console.log('System theme changed to light, data-theme attribute removed');
-      }
-    });
+  // Create a gradient from blue (cold) to red (hot)
+  if (temp <= 0.2) {
+    // Cold blue (0-0.2)
+    return '#3498db';
+  } else if (temp <= 0.4) {
+    // Cool blue-green (0.2-0.4)
+    return '#2ecc71';
+  } else if (temp <= 0.6) {
+    // Neutral yellow (0.4-0.6)
+    return '#f2c53c';
+  } else if (temp <= 0.8) {
+    // Warm orange (0.6-0.8)
+    return '#e67e22';
+  } else {
+    // Hot red (0.8-1.0)
+    return '#e74c3c';
   }
+}
+
+// Function to update temperature display
+function updateTemperatureDisplay(value) {
+  const temperatureValue = document.getElementById('temperature-value');
+  if (temperatureValue) {
+    temperatureValue.textContent = value;
+    temperatureValue.style.color = getTemperatureColor(value);
+    console.log('Temperature updated to:', value, 'with color:', getTemperatureColor(value));
+  }
+}
+
+// Function to apply dark theme
+function applyTheme() {
+  console.log('Applying dark theme');
+
+  // Apply dark theme to both html and body elements
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.body.setAttribute('data-theme', 'dark');
+  console.log('Dark theme applied, data-theme attribute set on HTML and BODY');
 
   // Force a repaint to ensure styles are applied
   const originalDisplay = document.body.style.display;
@@ -198,21 +202,15 @@ async function loadOptions() {
       // Set initial value
       const tempValue = options.temperature !== undefined ? options.temperature : defaultOptions.temperature;
       temperatureSlider.value = tempValue;
-      temperatureValue.textContent = tempValue;
+
+      // Update temperature display with color
+      updateTemperatureDisplay(tempValue);
 
       console.log('Set temperature to:', tempValue);
     }
 
-    // Set theme selection
-    const themeValue = options.theme || defaultOptions.theme;
-    console.log('Setting theme to:', themeValue);
-    const themeSelect = document.getElementById('theme');
-    if (themeSelect) {
-      themeSelect.value = themeValue;
-    }
-
-    // Apply the theme
-    applyTheme(themeValue);
+    // Apply dark theme
+    applyTheme();
 
   } catch (error) {
     console.error('Failed to load options:', error);
@@ -257,7 +255,8 @@ async function saveOptions() {
     if (isNaN(temperature) || temperature < 0 || temperature > 1) {
       temperature = defaultOptions.temperature;
       temperatureInput.value = temperature;
-      document.getElementById('temperature-value').textContent = temperature;
+      // Update temperature display with color
+      updateTemperatureDisplay(temperature);
     }
 
     // Get model value, use default if empty
@@ -273,10 +272,8 @@ async function saveOptions() {
     const providerValue = providerSelect ? providerSelect.value : defaultOptions.provider;
     console.log('Getting provider value for saving:', providerValue);
 
-    // Get selected theme
-    const themeSelect = document.getElementById('theme');
-    const selectedTheme = themeSelect ? themeSelect.value : defaultOptions.theme;
-    console.log('Selected theme:', selectedTheme);
+    // Theme is always dark
+    console.log('Using dark theme');
 
     const options = {
       language: document.getElementById('language').value,
@@ -285,7 +282,7 @@ async function saveOptions() {
       model: model,
       maxTokens: maxTokens,
       temperature: temperature,
-      theme: selectedTheme,
+      theme: 'dark', // Always dark theme
       prompt: document.getElementById('prompt').value
     };
 
@@ -352,11 +349,11 @@ async function resetOptions() {
 
     // Reset temperature
     const temperatureSlider = document.getElementById('temperature');
-    const temperatureValue = document.getElementById('temperature-value');
 
-    if (temperatureSlider && temperatureValue) {
+    if (temperatureSlider) {
       temperatureSlider.value = defaultOptions.temperature;
-      temperatureValue.textContent = defaultOptions.temperature;
+      // Update temperature display with color
+      updateTemperatureDisplay(defaultOptions.temperature);
     }
 
     // Reset prompt
@@ -364,12 +361,8 @@ async function resetOptions() {
       document.getElementById('prompt').value = defaultOptions.prompt;
     }
 
-    // Reset theme
-    const themeSelect = document.getElementById('theme');
-    if (themeSelect) {
-      themeSelect.value = defaultOptions.theme;
-      applyTheme(defaultOptions.theme);
-    }
+    // Apply dark theme
+    applyTheme();
 
     // Save the default options
     await saveOptions();
@@ -392,13 +385,8 @@ async function resetOptions() {
 }
 
 // Initialize the page
-// Apply theme from storage before DOM is fully loaded
-chrome.storage.sync.get(['theme'], function (result) {
-  const theme = result.theme || 'auto';
-  if (theme === 'dark' || (theme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-});
+// Apply dark theme before DOM is fully loaded
+document.documentElement.setAttribute('data-theme', 'dark');
 
 document.addEventListener('DOMContentLoaded', async function() {
   try {
@@ -485,11 +473,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     const temperatureSlider = document.getElementById('temperature');
     if (temperatureSlider) {
       temperatureSlider.addEventListener('input', function() {
-        const temperatureValue = document.getElementById('temperature-value');
-        if (temperatureValue) {
-          temperatureValue.textContent = this.value;
-          console.log('Temperature slider changed to:', this.value);
-        }
+        // Update temperature display with color
+        updateTemperatureDisplay(this.value);
+        console.log('Temperature slider changed to:', this.value);
       });
     }
 
@@ -517,22 +503,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       });
     }
 
-    // Add event listener for theme change
-    const themeSelect = document.getElementById('theme');
-    if (themeSelect) {
-      themeSelect.addEventListener('change', function () {
-        const selectedTheme = this.value;
-        console.log('Theme changed to:', selectedTheme);
-
-        // Apply theme immediately
-        applyTheme(selectedTheme);
-
-        // Save the theme change immediately
-        chrome.storage.sync.set({ theme: selectedTheme }, () => {
-          console.log('Theme saved after change');
-        });
-      });
-    };
+    // Theme is always dark, no event listener needed
 
     console.log('Options page initialized successfully');
 
