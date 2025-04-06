@@ -1,42 +1,11 @@
-// Function to apply theme based on selection or system preference
-function applyTheme(theme) {
-  console.log('Applying theme to popup:', theme);
+// Function to apply dark theme
+function applyTheme() {
+  console.log('Applying dark theme to popup');
 
-  // Remove any existing theme attribute from both html and body
-  document.documentElement.removeAttribute('data-theme');
-  document.body.removeAttribute('data-theme');
-
-  if (theme === 'dark') {
-    // Apply dark theme to both html and body elements
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.body.setAttribute('data-theme', 'dark');
-    console.log('Dark theme applied to popup, data-theme attribute set on HTML and BODY');
-  } else if (theme === 'light') {
-    // Light theme is default, no need to add attribute
-    console.log('Light theme applied to popup, no data-theme attribute needed');
-  } else if (theme === 'auto') {
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.body.setAttribute('data-theme', 'dark');
-      console.log('Auto theme in popup: system is dark, data-theme attribute set on HTML and BODY');
-    } else {
-      console.log('Auto theme in popup: system is light, no data-theme attribute needed');
-    }
-
-    // Add listener for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (e.matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.body.setAttribute('data-theme', 'dark');
-        console.log('System theme changed to dark in popup, data-theme attribute set');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        document.body.removeAttribute('data-theme');
-        console.log('System theme changed to light in popup, data-theme attribute removed');
-      }
-    });
-  }
+  // Apply dark theme to both html and body elements
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.body.setAttribute('data-theme', 'dark');
+  console.log('Dark theme applied to popup, data-theme attribute set on HTML and BODY');
 
   // Force a repaint to ensure styles are applied
   const originalDisplay = document.body.style.display;
@@ -50,13 +19,8 @@ function applyTheme(theme) {
   console.log('Current BODY data-theme:', document.body.getAttribute('data-theme'));
 }
 
-// Apply theme from storage before DOM is fully loaded
-chrome.storage.sync.get(['theme'], function (result) {
-  const theme = result.theme || 'auto';
-  if (theme === 'dark' || (theme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
-});
+// Apply dark theme before DOM is fully loaded
+document.documentElement.setAttribute('data-theme', 'dark');
 
 // Get default model based on provider
 function getDefaultModel(provider) {
@@ -70,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     provider: 'openai',
     apiKey: '',
     model: '',  // Will be set dynamically based on provider
-    theme: 'auto'  // Theme is controlled from options page, but still applied here
+    theme: 'dark'  // Only dark theme is used
   };
 
   // Load saved options
@@ -102,8 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
       modelInput.value = modelValue;
     }
 
-    // Apply theme (without UI control in popup)
-    applyTheme(options.theme || defaultOptions.theme);
+    // Apply dark theme
+    applyTheme();
   });
 
   // Add event listener for language change
