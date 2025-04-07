@@ -20,35 +20,23 @@ function applyTheme() {
 // Apply dark theme before DOM is fully loaded
 document.documentElement.setAttribute('data-theme', 'dark');
 
-// Function to fetch the latest version from GitHub
-async function fetchLatestVersion() {
+// Function to get the extension version from manifest.json
+function getExtensionVersion() {
   try {
-    const response = await fetch('https://api.github.com/repos/Sigmanor/yt-ai-comments/tags');
-    if (!response.ok) {
-      throw new Error(`GitHub API responded with status: ${response.status}`);
+    // Get the manifest data using browser extension API
+    const manifest = chrome.runtime.getManifest();
+    const version = manifest.version;
+
+    // Update the version element
+    const versionElement = document.getElementById('extension-version');
+    if (versionElement) {
+      versionElement.textContent = version;
     }
 
-    const tags = await response.json();
-    if (tags && tags.length > 0) {
-      // Get the latest tag (first in the array)
-      const latestTag = tags[0].name;
-      // Remove 'v' prefix if present
-      const version = latestTag.startsWith('v') ? latestTag.substring(1) : latestTag;
-
-      // Update the version element
-      const versionElement = document.getElementById('extension-version');
-      if (versionElement) {
-        versionElement.textContent = version;
-      }
-
-      console.log('Latest version fetched from GitHub:', version);
-      return version;
-    } else {
-      console.log('No tags found in the repository');
-      return '1.0.0'; // Default version if no tags found
-    }
+    console.log('Version from manifest.json:', version);
+    return version;
   } catch (error) {
-    console.error('Error fetching version from GitHub:', error);
+    console.error('Error getting version from manifest:', error);
     return '1.0.0'; // Default version on error
   }
 }
@@ -58,6 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Apply dark theme
   applyTheme();
 
-  // Fetch and display the latest version
-  fetchLatestVersion();
+  // Get and display the extension version from manifest.json
+  getExtensionVersion();
 });
