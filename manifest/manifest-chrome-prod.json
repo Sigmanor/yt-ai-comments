@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouTube AI Comments Generator",
   "version": "1.3.0",
-  "description": "Generates comments to support YouTube creators",
+  "description": "Generates YouTube comments with AI to support creators",
   "permissions": [
     "storage",
     "activeTab",
