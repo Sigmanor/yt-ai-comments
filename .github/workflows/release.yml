@@ -62,7 +62,7 @@ jobs:
           }
 
           # Get Chrome version
-          CHROME_VERSION=$(extract_version "manifest/manifest-chrome.json")
+          CHROME_VERSION=$(extract_version "manifest/manifest-chrome-prod.json")
           if [ -n "$CHROME_VERSION" ]; then
             echo "CHROME_VERSION=$CHROME_VERSION" >> $GITHUB_OUTPUT
             echo "Using Chrome version from manifest: $CHROME_VERSION"
@@ -72,7 +72,7 @@ jobs:
           fi
 
           # Get Firefox version
-          FIREFOX_VERSION=$(extract_version "manifest/manifest-firefox.json")
+          FIREFOX_VERSION=$(extract_version "manifest/manifest-firefox-prod.json")
           if [ -n "$FIREFOX_VERSION" ]; then
             echo "FIREFOX_VERSION=$FIREFOX_VERSION" >> $GITHUB_OUTPUT
             echo "Using Firefox version from manifest: $FIREFOX_VERSION"
@@ -83,7 +83,7 @@ jobs:
 
       - name: Prepare Chrome Extension
         run: |
-          cp manifest/manifest-chrome.json src/manifest.json
+          cp manifest/manifest-chrome-prod.json src/manifest.json
           mkdir -p dist/chrome
           cd src
           zip -r ../dist/chrome/yt-ai-comments-chrome-v${{ steps.package_info.outputs.CHROME_VERSION }}.zip *
@@ -124,7 +124,7 @@ jobs:
 
       - name: Prepare Firefox Extension
         run: |
-          cp manifest/manifest-firefox.json src/manifest.json
+          cp manifest/manifest-firefox-prod.json src/manifest.json
           mkdir -p dist/firefox
           cd src
           zip -r ../dist/firefox/yt-ai-comments-firefox-v${{ steps.package_info.outputs.FIREFOX_VERSION }}.xpi *
