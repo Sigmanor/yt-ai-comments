@@ -1,3 +1,20 @@
+# [1.3.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.2.1...v1.3.0) (2025-04-07)
+
+
+### Bug Fixes
+
+* correct Settings page title ([e00f3c5](https://github.com/Sigmanor/yt-ai-comments/commit/e00f3c53c676607522aa30e98d2cd6544769831e))
+* ensure consistent styling across all relevant input fields ([20721fb](https://github.com/Sigmanor/yt-ai-comments/commit/20721fb6194884124d741514c7433b1a08740952))
+
+
+### Features
+
+* add icon buttons for about, settings, and donation to the popup window ([6377bf4](https://github.com/Sigmanor/yt-ai-comments/commit/6377bf4a18d2c001771c0ae3220e36782f3eeffa))
+* update about page with version link and styling changes ([045ddc7](https://github.com/Sigmanor/yt-ai-comments/commit/045ddc75372d38c5ecdd717da88233b1f0e4d96e)), closes [#5e99e6](https://github.com/Sigmanor/yt-ai-comments/issues/5e99e6)
+* update color scheme for form elements ([ad8b9dd](https://github.com/Sigmanor/yt-ai-comments/commit/ad8b9dd9cd5763e03bb3489d984732700e568afa)), closes [#556fa2d9](https://github.com/Sigmanor/yt-ai-comments/issues/556fa2d9) [#ff0000](https://github.com/Sigmanor/yt-ai-comments/issues/ff0000)
+* update favicon and icon in About window ([6ba5d92](https://github.com/Sigmanor/yt-ai-comments/commit/6ba5d92052313ec539b0edf6d374fab81a07141e))
+* update favicon and icon in Settings window ([0c5af80](https://github.com/Sigmanor/yt-ai-comments/commit/0c5af809ecccd53fe40f7700528758a115789a87))
+
 ## [1.2.1](https://github.com/Sigmanor/yt-ai-comments/compare/v1.2.0...v1.2.1) (2025-04-04)
 
 
