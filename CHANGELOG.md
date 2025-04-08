@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.3.0...v1.4.0) (2025-04-08)
+
+
+### Bug Fixes
+
+* adjust about window height to better fit the content ([cfd23be](https://github.com/Sigmanor/yt-ai-comments/commit/cfd23bed7d8a4212ddaca0485f8a0b010d3a06e5))
+
+
+### Features
+
+* update version fetching to use manifest.json version ([f2f3550](https://github.com/Sigmanor/yt-ai-comments/commit/f2f3550453c1afe4bad472be431b74e9b8b377dd))
+
 # [1.3.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.2.1...v1.3.0) (2025-04-07)
 
 
