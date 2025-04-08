@@ -2,11 +2,12 @@
 
 # YouTube AI Comments Generator
 
-![alt text](assets/store-screenshots/3.jpg)
+![alt text](assets/store-screenshots/top_page_ad.jpg)
 
 [![Build and Release Extension](https://github.com/Sigmanor/yt-ai-comments/actions/workflows/release.yml/badge.svg)](https://github.com/Sigmanor/yt-ai-comments/actions/workflows/release.yml)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-Available-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/youtube-ai-comments-gener/ikdjiofmkibkjecaknpmolmibjbkgalo)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox_Add--ons-Available-FF7139?logo=firefox&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/yt-ai-comments/)
 
 YouTube AI Comments Generator is a browser extension that helps you craft engaging and insightful comments for YouTube videos using AI. It supports multiple languages and various AI providers, making it easy to interact with your favorite creators and show your support effortlessly!
 
