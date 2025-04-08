@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       aboutButton.addEventListener('click', function () {
         console.log('About button clicked');
         // Open about.html in a new window
-        window.open(chrome.runtime.getURL('about/about.html'), '_blank', 'width=600,height=830');
+        window.open(chrome.runtime.getURL('about/about.html'), '_blank', 'width=600,height=780');
       });
     }
   } catch (error) {
