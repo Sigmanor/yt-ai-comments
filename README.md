@@ -49,6 +49,13 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 3. Confirm the installation when prompted
 4. The extension will be automatically installed and ready to use
 
+### Firefox Add-ons Store
+
+1. Visit the [Firefox Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/yt-ai-comments/)
+2. Click the "Add to Firefox" button
+3. Confirm the installation when prompted
+4. The extension will be automatically installed and ready to use
+
 ### From Releases
 
 1. Go to the [Releases](https://github.com/Sigmanor/yt-ai-comments/releases) page
@@ -130,22 +137,20 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 ### Project Structure
 
 ```
-├── manifest/               # Browser-specific manifest files
-│   ├── manifest-chrome-prod.json
-│   ├── manifest-firefox-prod.json
-│   └── manifest-firefox-dev.json
-├── scripts/                # Build and preparation scripts
-│   ├── build.js            # Main build script
-│   └── prepare.js          # Browser-specific preparation script
-├── src/                    # Extension source code
-│   ├── background/         # Background service worker
-│   ├── content/            # YouTube page integration
-│   ├── options/            # Settings page
-│   ├── popup/              # Popup interface
-│   ├── styles/             # Theme styling
-│   └── icons/              # Extension icons
-
-└── .github/workflows/      # CI/CD configuration
+├── src/                     # Extension source code
+│   ├── about/               # About page
+│   ├── background/          # Background service worker
+│   ├── content/             # YouTube page integration
+│   ├── icons/               # Extension icons
+│   ├── lib/                 # Shared libraries
+│   ├── options/             # Settings page
+│   ├── popup/               # Popup interface
+│   ├── styles/              # Theme styling
+│   └── manifest.json        # Extension manifest
+└── scripts/                 # Build scripts
+    ├── build.js             # Main build script
+    ├── prepare.js           # Browser-specific preparation script
+    └── update-manifests.js  # Manifest update script
 ```
 
 ### Building From Source
