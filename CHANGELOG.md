@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.4.0...v1.5.0) (2025-05-31)
+
+
+### Features
+
+* add OpenRouter provider for comment generation ([1db3bb7](https://github.com/Sigmanor/yt-ai-comments/commit/1db3bb793ce584d8f138a85474ce8e19f340062e))
+
 # [1.4.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.3.0...v1.4.0) (2025-04-08)
 
 
