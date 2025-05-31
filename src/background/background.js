@@ -55,6 +55,9 @@ async function generateComment(options) {
     } else if (provider === 'mistralai') {
       console.log('Using MistralAI provider');
       return await generateWithMistralAI(apiKey, prompt, language, model, maxTokens, temperature);
+    } else if (provider === 'openrouter') {
+      console.log('Using OpenRouter provider');
+      return await generateWithOpenRouter(apiKey, prompt, language, model, maxTokens, temperature);
     } else {
       throw new Error('Unknown AI provider: ' + provider);
     }
@@ -194,6 +197,75 @@ async function generateWithMistralAI(apiKey, prompt, language, model, maxTokens,
     return comment;
   } catch (error) {
     console.error('Error in MistralAI API call:', error);
+    throw error;
+  }
+}
+
+// Function to generate a comment via OpenRouter API
+async function generateWithOpenRouter(apiKey, prompt, language, model, maxTokens, temperature) {
+  // Use default values if not provided
+  const modelToUse = model || 'openai/gpt-4.1-nano';
+  const maxTokensToUse = maxTokens || 2000;
+  const temperatureToUse = temperature !== undefined ? temperature : 0.5;
+
+  console.log('OpenRouter API call with:', {
+    model: modelToUse,
+    maxTokens: maxTokensToUse,
+    temperature: temperatureToUse,
+    language: language
+  });
+
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://github.com/sigmanor/yt-ai-comments', // Optional but recommended
+        'X-Title': 'YouTube AI Comments Generator' // Optional but recommended
+      },
+      body: JSON.stringify({
+        model: modelToUse,
+        messages: [
+          {
+            role: 'system',
+            content: `You are an assistant that writes comments for YouTube. Write in ${getLanguageName(language)}. Consider the video title when writing your comment. Do not use quotation marks around your response. Just write the comment directly.`
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        max_tokens: maxTokensToUse,
+        temperature: temperatureToUse
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('OpenRouter API error response:', error);
+      throw new Error(`OpenRouter API error: ${error.error?.message || 'Unknown error'}`);
+    }
+
+    const data = await response.json();
+    let comment = data.choices[0].message.content.trim();
+    console.log('OpenRouter API success, response length:', comment.length);
+
+    // Remove quotes if they wrap the entire comment
+    if (comment.startsWith('"') && comment.endsWith('"')) {
+      console.log('OpenRouter comment has surrounding quotes, removing them');
+      comment = comment.substring(1, comment.length - 1);
+    }
+
+    // Also check for single quotes
+    if (comment.startsWith('\'') && comment.endsWith('\'')) {
+      console.log('OpenRouter comment has surrounding single quotes, removing them');
+      comment = comment.substring(1, comment.length - 1);
+    }
+
+    return comment;
+  } catch (error) {
+    console.error('Error in OpenRouter API call:', error);
     throw error;
   }
 }

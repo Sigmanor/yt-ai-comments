@@ -24,7 +24,14 @@ document.documentElement.setAttribute('data-theme', 'dark');
 
 // Get default model based on provider
 function getDefaultModel(provider) {
-  return provider === 'openai' ? 'gpt-4o-mini' : 'mistral-small-latest';
+  if (provider === 'openai') {
+    return 'gpt-4o-mini';
+  } else if (provider === 'mistralai') {
+    return 'mistral-small-latest';
+  } else if (provider === 'openrouter') {
+    return 'openai/gpt-4.1-nano';
+  }
+  return 'gpt-4o-mini'; // Default to OpenAI if provider is unknown
 }
 
 document.addEventListener('DOMContentLoaded', function() {
