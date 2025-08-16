@@ -9,7 +9,8 @@
     "build:firefox": "node scripts/build.js firefox",
     "prepare:chrome": "node scripts/prepare.js chrome",
     "prepare:firefox": "node scripts/prepare.js firefox",
-    "prepare:firefox:dev": "node scripts/prepare.js firefox-dev"
+    "prepare:firefox:dev": "node scripts/prepare.js firefox-dev",
+    "update-manifests": "node scripts/update-manifests.js"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.0",
