@@ -243,14 +243,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           # Run semantic-release to create the release
           OUTPUT_FILE="semantic-release-output.txt"
           npx semantic-release --debug > $OUTPUT_FILE 2>&1 || true
 
           # Check if a new release was created by looking for specific messages in the output
-          if grep -q "Publishing version" $OUTPUT_FILE; then
+          if grep -q "Publishing version\|Published release" $OUTPUT_FILE; then
             echo "RELEASE_CREATED=true" >> $GITHUB_OUTPUT
             echo "Semantic release created a new release"
           else

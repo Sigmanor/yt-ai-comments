@@ -1,6 +1,7 @@
 {
   "branches": ["main"],
   "repositoryUrl": "https://github.com/Sigmanor/yt-ai-comments.git",
+  "tagFormat": "v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
@@ -20,7 +21,6 @@
       }
     ],
     "@semantic-release/changelog",
-    "@semantic-release/npm",
     [
       "@semantic-release/git",
       {
