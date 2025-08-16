@@ -201,6 +201,7 @@ function addGenerateButton() {
       { value: 'supportive', text: 'Supportive' }
     ];
 
+    // First create options with default selection
     moods.forEach(mood => {
       const option = document.createElement('option');
       option.value = mood.value;
@@ -209,9 +210,31 @@ function addGenerateButton() {
       moodSelect.appendChild(option);
     });
 
+    // Then get the saved mood from storage and update selection if available
+    chrome.storage.sync.get({ savedMood: 'neutral' }, function (data) {
+      const savedMood = data.savedMood;
+      if (savedMood && savedMood !== 'neutral') {
+        // Find and select the saved option
+        for (let i = 0; i < moodSelect.options.length; i++) {
+          if (moodSelect.options[i].value === savedMood) {
+            moodSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    });
+
     moodSection.appendChild(moodLabel);
     moodSection.appendChild(moodSelect);
     moodSection.addEventListener('click', (e) => e.stopPropagation());
+
+    // Save mood selection when it changes
+    moodSelect.addEventListener('change', (e) => {
+      const selectedMood = e.target.value;
+      chrome.storage.sync.set({ savedMood: selectedMood }, function () {
+        console.log('Mood preference saved:', selectedMood);
+      });
+    });
 
     // Language section
     const langSection = document.createElement('div');
@@ -279,6 +302,12 @@ function addGenerateButton() {
       e.stopPropagation();
       const mood = moodSelect.value;
       const language = langSelect.value;
+
+      // Save the current mood selection
+      chrome.storage.sync.set({ savedMood: mood }, function () {
+        console.log('Mood preference saved on generate:', mood);
+      });
+
       dropdownMenu.style.display = 'none';
       generateComment(mood, language);
     });
