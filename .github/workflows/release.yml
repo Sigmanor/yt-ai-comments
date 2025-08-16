@@ -61,17 +61,17 @@ jobs:
             echo "release_needed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Update manifest files
+      - name: Update manifest files and package.json
         if: steps.get_version.outputs.release_needed == 'true'
         run: |
-          # Update all manifest files with the new version
+          # Update all manifest files and package.json with the new version
           node scripts/update-manifests.js ${{ steps.get_version.outputs.new_version }}
 
           # Commit the changes
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add manifest/*.json src/manifest.json
-          git commit -m "chore: update manifest versions to ${{ steps.get_version.outputs.new_version }} [skip ci]"
+          git add manifest/*.json src/manifest.json package.json
+          git commit -m "chore: update versions to ${{ steps.get_version.outputs.new_version }} [skip ci]"
           git push https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
   build:
     name: Build Chrome and Firefox Extension
