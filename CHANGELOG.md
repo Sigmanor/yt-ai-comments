@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.5.0...v1.6.0) (2025-08-16)
+
+
+### Bug Fixes
+
+* **release:** update Firefox extension path in .releaserc.json ([803632e](https://github.com/Sigmanor/yt-ai-comments/commit/803632e8ad452a0d5bd9a121674adab223ec8b66))
+
+
+### Features
+
+* **scripts:** update package.json version alongside manifest files ([082cb1b](https://github.com/Sigmanor/yt-ai-comments/commit/082cb1be1b4760e63250d8177652586f1c9e63ae)), closes [#123](https://github.com/Sigmanor/yt-ai-comments/issues/123)
+* **ui:** add dropdown menu for comment generation with mood and language options ([4b890d1](https://github.com/Sigmanor/yt-ai-comments/commit/4b890d17a14e84e0d69e4f2611127b0696b4ac5b))
+* **ui:** persist and restore user mood preference in comment generation ([ff7d5c4](https://github.com/Sigmanor/yt-ai-comments/commit/ff7d5c47842f1fba052d453c070e606f07b5d275))
+
 # [1.5.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.4.0...v1.5.0) (2025-05-31)
 
 
