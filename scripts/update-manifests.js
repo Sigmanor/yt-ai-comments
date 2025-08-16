@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * This script updates the version in all manifest files
+ * This script updates the version in all manifest files and package.json
  * Usage: node update-manifests.js <version>
  */
 
@@ -56,5 +56,22 @@ manifestFiles.forEach(manifestPath => {
     console.error(`Error updating ${manifestPath}: ${error.message}`);
   }
 });
+
+// Update package.json version
+const packageJsonPath = path.join(rootDir, 'package.json');
+try {
+  // Read the package.json file
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+
+  // Update the version
+  packageJson.version = version;
+
+  // Write the updated package.json back to the file
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+  console.log(`Updated package.json to version ${version}`);
+} catch (error) {
+  console.error(`Error updating package.json: ${error.message}`);
+}
 
 console.log('All manifest files updated successfully!');
