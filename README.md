@@ -21,6 +21,8 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 - **Adjustable Parameters**: Configure max tokens and temperature for fine-tuned generation
 - **Seamless YouTube Integration**: Generate button appears directly in YouTube's comment field
 - **Video Context Awareness**: Automatically includes video title in the generation prompt
+- **Comment Mood Selection**: Choose different moods for your comments (positive, neutral, critical)
+- **Quick Language Switching**: Change comment language directly from the dropdown menu
 
 ## 📸 Screenshots
 
@@ -98,6 +100,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
    - Navigate to any YouTube video
    - Click in the comment field
    - The "Generate Comment" button will appear next to YouTube's comment buttons
+   - Use the dropdown menu to select your preferred mood and language (optional)
    - Click the button to generate a comment based on your settings
    - Edit the generated comment if needed
    - Post your comment using YouTube's "Comment" button
@@ -107,6 +110,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 | Setting              | Description                            | Default                                                                                                                                      |
 | -------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Comment Language** | Language for generated comments        | English                                                                                                                                      |
+| **Comment Mood**     | Tone of the generated comment          | Positive                                                                                                                                     |
 | **AI Provider**      | Choose between OpenAI and MistralAI    | OpenAI                                                                                                                                       |
 | **API Key**          | Your API key for the selected provider | -                                                                                                                                            |
 | **Model**            | AI model to use for generation         | gpt-4o-mini (OpenAI) or mistral-small-latest (MistralAI)                                                                                     |
