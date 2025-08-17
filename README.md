@@ -9,13 +9,13 @@
 [![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-Available-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/youtube-ai-comments-gener/ikdjiofmkibkjecaknpmolmibjbkgalo)
 [![Firefox Add-ons](https://img.shields.io/badge/Firefox_Add--ons-Available-FF7139?logo=firefox&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/yt-ai-comments/)
 
-YouTube AI Comments Generator is a browser extension that helps you craft engaging and insightful comments for YouTube videos using AI. It supports multiple languages and various AI providers, making it easy to interact with your favorite creators and show your support effortlessly!
+YouTube AI Comments Generator is a browser extension that helps you craft engaging and insightful comments for YouTube videos using AI. It supports multiple languages and various AI providers (OpenAI, MistralAI, and OpenRouter), making it easy to interact with your favorite creators and show your support effortlessly!
 
 </div>
 
 ## 🌟 Features
 
-- **AI-Powered Comment Generation**: Utilize OpenAI or MistralAI to create engaging comments
+- **AI-Powered Comment Generation**: Utilize OpenAI, MistralAI, or OpenRouter to create engaging comments
 - **Multiple Language Support**: Generate comments in Ukrainian, English, Polish, German, and French
 - **Customizable AI Models**: Choose between different models (GPT-4o, Mistral Large, etc.)
 - **Adjustable Parameters**: Configure max tokens and temperature for fine-tuned generation
@@ -42,7 +42,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 ## 📋 Requirements
 
 - Chrome (version 88+) or Firefox (version 109+)
-- OpenAI or MistralAI API key
+- OpenAI, MistralAI, or OpenRouter API key
 
 ## 🔧 Installation
 
@@ -94,7 +94,7 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 
    - Click the extension icon in your browser toolbar
    - Click "More Settings" to access the full settings page
-   - Enter your API key (OpenAI or MistralAI)
+   - Enter your API key (OpenAI, MistralAI, or OpenRouter)
    - Configure your preferred language, model, and other settings
    - Save your settings
 
@@ -113,9 +113,9 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 | -------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Comment Language** | Language for generated comments        | English                                                                                                                                      |
 | **Comment Mood**     | Tone of the generated comment          | Positive                                                                                                                                     |
-| **AI Provider**      | Choose between OpenAI and MistralAI    | OpenAI                                                                                                                                       |
+| **AI Provider**      | Choose between OpenAI, MistralAI, and OpenRouter    | OpenAI                                                                                                                                       |
 | **API Key**          | Your API key for the selected provider | -                                                                                                                                            |
-| **Model**            | AI model to use for generation         | gpt-4o-mini (OpenAI) or mistral-small-latest (MistralAI)                                                                                     |
+| **Model**            | AI model to use for generation         | gpt-4o-mini (OpenAI), mistral-small-latest (MistralAI), or various models (OpenRouter)                                                       |
 | **Max Tokens**       | Maximum length of generated comments   | 2000                                                                                                                                         |
 | **Temperature**      | Creativity level (0.0-1.0)             | 0.5                                                                                                                                          |
 | **Prompt**           | Template for comment generation        | Write a positive comment to support the YouTube video creator. The comment should be friendly. No less than 10 words, no more than 20 words. |
@@ -135,6 +135,14 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 1. Go to [Mistral AI Console](https://console.mistral.ai/)
 2. Create an account or log in
 3. Navigate to API Keys section
+4. Create a new API key
+5. Copy and paste it into the extension settings
+
+### OpenRouter API Key
+
+1. Go to [OpenRouter](https://openrouter.ai/)
+2. Create an account or log in
+3. Navigate to the API Keys section
 4. Create a new API key
 5. Copy and paste it into the extension settings
 
