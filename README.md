@@ -35,6 +35,8 @@ YouTube AI Comments Generator is a browser extension that helps you craft engagi
 
 ![Screenshot 3](assets/readme-screenshots/2.png)
 
+![Screenshot 4](assets/readme-screenshots/3.png)
+
 </details>
 
 ## 📋 Requirements
