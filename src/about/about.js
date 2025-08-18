@@ -41,6 +41,15 @@ function getExtensionVersion() {
   }
 }
 
+// Function to update the copyright year to the current year
+function updateCopyrightYear() {
+  const currentYear = new Date().getFullYear();
+  const yearElement = document.getElementById('current-year');
+  if (yearElement) {
+    yearElement.textContent = currentYear;
+  }
+}
+
 // Initialize the page when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   // Apply dark theme
@@ -48,4 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Get and display the extension version from manifest.json
   getExtensionVersion();
+
+  // Update the copyright year to the current year
+  updateCopyrightYear();
 });
