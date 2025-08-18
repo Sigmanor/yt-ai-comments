@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/Sigmanor/yt-ai-comments/compare/v1.7.0...v1.7.1) (2025-08-18)
+
+
+### Bug Fixes
+
+* **firefox:** replace magic-wand.png with Base64 encoding to resolve Firefox security error ([fb865a8](https://github.com/Sigmanor/yt-ai-comments/commit/fb865a828fb6a28fff39374d7e5c521a12041300))
+
 # [1.7.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.6.0...v1.7.0) (2025-08-18)
 
 
