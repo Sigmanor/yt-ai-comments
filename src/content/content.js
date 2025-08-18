@@ -485,9 +485,6 @@ function addGenerateButton() {
             }
 
             if (response && response.success) {
-              // Insert the generated comment into the input field
-              console.log('Looking for comment input field...');
-
               // Try multiple selectors to find the comment input field
               let commentInput = document.querySelector('#contenteditable-root');
 
