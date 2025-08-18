@@ -79,10 +79,10 @@ function addGenerateButton() {
     dropdownContainer.style.display = 'inline-block';
     dropdownContainer.style.marginRight = '8px';
 
-    // Create main button with dropdown arrow
+    // Create main button with magic wand icon
     const button = document.createElement('button');
     button.className = 'ai-comment-generator-btn';
-    button.textContent = 'Generate Comment';
+    button.innerHTML = '<img src="' + chrome.runtime.getURL('icons/magic-wand.png') + '" alt="Generate" class="ai-comment-icon" />';
     button.title = 'Generate a comment using AI';
 
     // Try to match YouTube's button style
@@ -421,8 +421,8 @@ function addGenerateButton() {
     const button = document.querySelector('.ai-comment-generator-btn');
     if (!button) return;
 
-    const originalText = button.textContent;
-    button.textContent = '⏳ Generating...';
+    const originalHTML = button.innerHTML;
+    button.innerHTML = '⏳ Generating...';
     button.disabled = true;
 
     // Get the video title
@@ -490,7 +490,7 @@ function addGenerateButton() {
 
         if (!options.apiKey) {
           alert('Please add an API key in the extension settings');
-          button.textContent = originalText;
+          button.innerHTML = originalHTML;
           button.disabled = false;
           return;
         }
@@ -503,7 +503,7 @@ function addGenerateButton() {
           },
           function (response) {
             if (button) {
-              button.textContent = originalText;
+              button.innerHTML = originalHTML;
               button.disabled = false;
             }
 
@@ -552,7 +552,7 @@ function addGenerateButton() {
       } catch (error) {
         console.error('Error in comment generation:', error);
         if (button) {
-          button.textContent = originalText;
+          button.innerHTML = originalHTML;
           button.disabled = false;
         }
         alert('Error: ' + error.message);

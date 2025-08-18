@@ -18,6 +18,12 @@
   vertical-align: middle;
 }
 
+.ai-comment-icon {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+}
+
 .ai-comment-generator-btn:hover {
   background-color: #b84949;
 }
