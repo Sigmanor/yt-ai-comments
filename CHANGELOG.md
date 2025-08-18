@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.6.0...v1.7.0) (2025-08-18)
+
+
+### Bug Fixes
+
+* **ui:** update label text and button label in generate dropdown ([68353c6](https://github.com/Sigmanor/yt-ai-comments/commit/68353c6d68b099c468bb783ece7014ce6dabceda))
+
+
+### Features
+
+* **ui:** dynamically update copyright year in about page ([e25e9d9](https://github.com/Sigmanor/yt-ai-comments/commit/e25e9d9c2415a3fd5bdc8c814dbeeda91a9303d8))
+* **ui:** replace generate button text with magic wand icon ([5737c6e](https://github.com/Sigmanor/yt-ai-comments/commit/5737c6e3d46d1ae20f5806fa115a81b651209f4e))
+
 # [1.6.0](https://github.com/Sigmanor/yt-ai-comments/compare/v1.5.0...v1.6.0) (2025-08-16)
 
 
