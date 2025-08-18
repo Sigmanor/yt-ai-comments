@@ -15,13 +15,10 @@ function addGenerateButton() {
 
   // Function to find the YouTube comment buttons container
   function findCommentButtonsContainer() {
-    console.log('Looking for comment buttons container...');
-
     // Try to find the YouTube comment buttons container using the provided selector
     const buttonsContainer = document.querySelector('#thumbnail-input-row > div:nth-child(2) > div:nth-child(7) > div:nth-child(7)');
 
     if (buttonsContainer) {
-      console.log('Found comment buttons container:', buttonsContainer);
       return buttonsContainer;
     }
 
@@ -33,7 +30,6 @@ function addGenerateButton() {
     if (commentButton) {
       const container = commentButton.closest('div[class*="style-scope"]');
       if (container) {
-        console.log('Found comment buttons container via Comment button:', container);
         return container.parentElement || container;
       }
     }
@@ -41,7 +37,6 @@ function addGenerateButton() {
     // Try alternative selectors if the specific one doesn't work
     const alternativeContainer = document.querySelector('#thumbnail-input-row ytd-button-renderer');
     if (alternativeContainer && alternativeContainer.parentElement) {
-      console.log('Found comment buttons container using alternative selector:', alternativeContainer.parentElement);
       return alternativeContainer.parentElement;
     }
 
@@ -50,12 +45,9 @@ function addGenerateButton() {
     if (commentArea) {
       const buttons = commentArea.querySelectorAll('ytd-button-renderer');
       if (buttons.length > 0 && buttons[0].parentElement) {
-        console.log('Found comment buttons container by searching comment area:', buttons[0].parentElement);
         return buttons[0].parentElement;
       }
     }
-
-    console.log('Could not find comment buttons container');
     return null;
   }
 
@@ -68,7 +60,6 @@ function addGenerateButton() {
     // Find the comment buttons container
     const buttonsContainer = findCommentButtonsContainer();
     if (!buttonsContainer) {
-      console.log('Could not find buttons container, cannot add generate button');
       return false;
     }
 
@@ -231,9 +222,7 @@ function addGenerateButton() {
     // Save mood selection when it changes
     moodSelect.addEventListener('change', (e) => {
       const selectedMood = e.target.value;
-      chrome.storage.sync.set({ savedMood: selectedMood }, function () {
-        console.log('Mood preference saved:', selectedMood);
-      });
+      chrome.storage.sync.set({ savedMood: selectedMood }, function () { });
     });
 
     // Language section
@@ -304,9 +293,7 @@ function addGenerateButton() {
       const language = langSelect.value;
 
       // Save the current mood selection
-      chrome.storage.sync.set({ savedMood: mood }, function () {
-        console.log('Mood preference saved on generate:', mood);
-      });
+      chrome.storage.sync.set({ savedMood: mood }, function () { });
 
       dropdownMenu.style.display = 'none';
       generateComment(mood, language);
@@ -358,7 +345,6 @@ function addGenerateButton() {
         cancelButton.parentElement.appendChild(dropdownContainer);
       }
       buttonAdded = true;
-      console.log('Comment generation button added after Cancel button');
       return true;
     }
 
@@ -382,13 +368,11 @@ function addGenerateButton() {
       }
 
       buttonAdded = true;
-      console.log('Comment generation button added relative to YouTube button');
       return true;
     } else {
       // If no button found, just append dropdown container to the container
       buttonsContainer.appendChild(dropdownContainer);
       buttonAdded = true;
-      console.log('Comment generation button added to container');
       return true;
     }
   }
@@ -427,10 +411,6 @@ function addGenerateButton() {
 
     // Get the video title
     const videoTitle = getVideoTitle();
-    console.log('Video title:', videoTitle);
-
-    // Get settings
-    console.log('Getting settings for comment generation...');
 
     // Define default options
     const defaultOptions = {
@@ -457,8 +437,6 @@ function addGenerateButton() {
 
     chrome.storage.sync.get(defaultOptions, function(options) {
       try {
-        console.log('Retrieved settings:', options);
-
         // Apply optional language override from dropdown if provided
         if (selectedLanguage && selectedLanguage !== 'default') {
           options.language = selectedLanguage;
@@ -485,7 +463,6 @@ function addGenerateButton() {
         // Add video title and mood to the prompt
         if (options.prompt) {
           options.prompt = `${options.prompt} Video title: "${videoTitle}".${moodInstruction}`;
-          console.log('Updated prompt with video title and mood:', options.prompt);
         }
 
         if (!options.apiKey) {
@@ -533,13 +510,11 @@ function addGenerateButton() {
               }
 
               if (commentInput) {
-                console.log('Found comment input field:', commentInput);
                 commentInput.textContent = response.comment;
                 commentInput.dispatchEvent(new Event('input', { bubbles: true }));
 
                 // Focus on the input field
                 commentInput.focus();
-                console.log('Comment inserted successfully');
               } else {
                 console.error('Could not find the comment input field');
                 alert('Could not find the comment input field. Please try clicking on the comment area first.');
@@ -583,8 +558,6 @@ function addGenerateButton() {
 
   // Function to check for comment input focus and add button when needed
   function setupCommentFocusListener() {
-    console.log('Setting up comment focus listener...');
-
     // Find all possible comment input fields
     const possibleInputs = [
       '#contenteditable-root',
@@ -598,7 +571,6 @@ function addGenerateButton() {
       document.addEventListener('focusin', (event) => {
         // Check if the focused element matches our selectors
         if (event.target.matches(selector) || event.target.closest(selector)) {
-          console.log('Comment input focused, adding button...');
           // Wait a short time for YouTube to render its buttons
           setTimeout(() => {
             if (!buttonAdded) {
@@ -623,7 +595,6 @@ function addGenerateButton() {
       if (attempts >= 15 || buttonAdded) {
         clearInterval(checkInterval);
         checkInterval = null;
-        console.log('Stopping periodic check for buttons container');
       }
     }, 2000);
   }
