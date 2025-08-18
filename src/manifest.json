@@ -46,8 +46,7 @@
     ]
   },
   "web_accessible_resources": [
-    "about/about.html",
-    "icons/magic-wand.png"
+    "about/about.html"
   ],
   "icons": {
     "16": "icons/icon16.png",
