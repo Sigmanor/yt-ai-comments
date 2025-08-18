@@ -1,6 +1,6 @@
 {
   "name": "yt-ai-comments",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "YouTube AI Comments Generator",
   "type": "module",
   "scripts": {
