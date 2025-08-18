@@ -175,7 +175,7 @@ function addGenerateButton() {
     moodSection.style.borderBottom = isDarkTheme ? '1px solid #404040' : '1px solid #eee';
 
     const moodLabel = document.createElement('div');
-    moodLabel.textContent = 'Comment Mood:';
+    moodLabel.textContent = 'Mood:';
     moodLabel.style.fontSize = '12px';
     moodLabel.style.fontWeight = 'bold';
     moodLabel.style.marginBottom = '4px';
@@ -241,7 +241,7 @@ function addGenerateButton() {
     langSection.style.padding = '8px 12px';
 
     const langLabel = document.createElement('div');
-    langLabel.textContent = 'Comment Language:';
+    langLabel.textContent = 'Language:';
     langLabel.style.fontSize = '12px';
     langLabel.style.fontWeight = 'bold';
     langLabel.style.marginBottom = '4px';
@@ -280,7 +280,7 @@ function addGenerateButton() {
 
     // Generate action button inside dropdown
     const generateBtn = document.createElement('button');
-    generateBtn.textContent = 'Generate';
+    generateBtn.textContent = 'Generate Comment';
     generateBtn.style.width = 'calc(100% - 16px)';
     generateBtn.style.margin = '8px';
     generateBtn.style.padding = '8px';
